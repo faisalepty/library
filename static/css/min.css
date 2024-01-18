@@ -1,0 +1,371 @@
+
+
+
+body{
+    font-family: 'Klee One', cursive;
+    background-color: #F8F9FA;
+    box-sizing: border-box;
+}
+ul{
+    list-style: none;
+}
+
+/* nav */
+
+#nav{
+    position: fixed;
+    top: 10vh;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-left: 0px;
+    width: 6%;
+    height: 200px;
+    background-color: rgb(18, 67, 167);
+    transition: width 0.5s ease;
+    text-align: start;
+    
+}
+
+#nav div p{
+    /* padding: 8px 3px 2px 1px; */
+    margin-bottom: 5px;
+    padding-right: 2px;
+    display: none;
+    transition: display 2s ease;
+}
+#nav div{
+    display: flex;
+   justify-content: center;
+    padding-left: 15px;
+    padding-right: 12px;
+    border-right: 3px solid white;
+    transition: color 0.3s ease-in-out, font-size 0.2s ease;
+
+}
+
+#nav div:nth-child(2), #nav div:nth-child(3), #nav div:nth-child(4){
+    color: rgb(114, 161, 223);
+    border-right: 3px solid rgb(194, 194, 194);
+    border: none;
+
+}
+#nav div:hover{
+    padding-left: 15px;
+    padding-right: 12px;
+    padding-bottom: 3px;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: rgb(114, 161, 223);
+    width: 100%;
+    height: 25px;
+    border: none;
+    border-radius: 6px;
+    
+    /* border-right: 3px solid white; */
+}
+#activeLink{
+    
+    margin-left: 8%;
+}
+#activeLink strong{
+    font-size: 0.8em;
+    font-family: 'Merriweather', serif;
+}
+#activeLink small{
+    font-size: 0.7em;
+    font-family: 'Space Grotesk', sans-serif;
+}
+#searchform{
+    border-radius: 15px;
+    padding: 2px 5px;
+    border: 1px solid gray;
+    width: 250px;
+    height: 30px;
+}
+#searchInput{
+    border-right: 1px solid gray;
+    
+}
+#searchinput button{
+    color: rgb(18, 67, 167);
+    padding:5px 13px;
+    border-radius: 5px;
+    border: 1px solid rgb(18, 67, 167);
+    background-color: white;
+    max-width: 200px;
+    font-size: 1.5vh;
+}
+#searchinput button:hover{
+    background-color: rgb(18, 67, 167);
+    color: white;
+}
+#searchinput button:nth-child(2){
+    background-color: rgb(18, 67, 167);
+    padding:5px 13px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+#searchinput button:nth-child(2):hover{
+    background-color: white;
+    color: rgb(18, 67, 167);
+    border: 1px solid rgb(18, 67, 167);
+}
+
+#navdiv{
+    margin-left: 8%;
+    margin-top: 0;
+}
+#myModal form, #myModal1 form{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+#myModal1 form div{
+    padding-left: 10px;
+    border-left: 1px solid rgb(204, 215, 236);
+}
+#myModal1 form div:first-child{
+    border: none;
+}
+#myModal form strong, #myModal1 form strong{
+    font-size: 0.6em
+}
+.modal-header {
+    border: none;
+}
+.modalInput{
+    background-color: #e9e9e9;
+    border-radius: 20px;
+    border: none;
+    
+}
+input[type="file"] {
+    display: none;
+}
+.modal-dialog{
+    max-width: 700px;
+}
+
+.image-file-input {
+    display: inline-block;
+    padding: 1px 0px 15px 0px;
+    cursor: pointer;
+    border: 1px dashed  #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    width: 100px;
+    color: #333;
+}
+
+
+
+
+/* home */
+#details{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+#details strong{
+ color: rgb(18, 67, 167);
+}
+#details div{
+    background-color: white;
+    height: 150px;
+    width: 25%;
+    /* margin-left: 20px; */
+    border-radius: 10px;
+}
+
+    /* book/members list */
+#bookfilterbtn{
+    padding-left: 8%;
+}
+#bookfilterbtn p{
+    margin-left: 10px;
+    padding: 5px 20px;
+    font-weight: 600;
+    background-color: white;
+}
+#bookfilterbtn p:first-child{
+   color:  rgb(18, 67, 167);
+}
+#bookPage{
+    background-color: white; 
+    margin-left: 8%;
+    margin-right:2%;
+    border-radius: 15px; 
+    font-size: 0.6em;
+}
+#bookPage hr{
+    margin: 0px;
+}
+#bookPage ul{
+    padding-left: 10px;
+}
+
+
+
+
+#books{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+#listSection{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+#listSection hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#listSection ul{
+   padding-left: 0;
+}
+#listSection li{
+   list-style: none;
+}
+.listDIvider{
+    padding-top: 5px;
+}
+.listDIvider p{
+    width: 20%;
+    margin-bottom: 10px;
+}
+#listSection #membersList, #listSection #booksList, #booksList{
+    width: 48.5%;
+    min-height:px;
+    padding: 15px;
+    font-size: 0.6em;
+    border-radius: 10px;
+    background-color: white;
+}
+#bookList{
+    margin-right:10px;
+}
+.listHeader{
+    display: flex;
+    justify-content: space-between;
+}
+.listHeader h3{
+    font-size: 1.5em;
+    color: rgb(18, 67, 167);
+    font-family: 'Merriweather', serif;
+
+}
+
+
+
+
+@media (min-width: 968px){
+    #details{
+        /* margin: auto; */
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #details div{
+        width: 24%;
+        margin-left: 1%;
+        
+    }
+    #nav{
+        width: 55px;
+    }
+}
+@media (min-width:779px) and (max-width:968px) {
+    #details div{
+        margin-left: 7px;
+    }
+  
+}
+@media (max-width: 779px){
+    #details{
+        /* margin: auto; */
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #details div{
+        width: 48%;
+        margin-left: 1%;
+        
+    }
+    #listSection{
+        display: block;
+
+    }
+    #listSection #membersList, #listSection #booksList{
+        width: 90%;
+        margin-bottom: 10px;
+    }
+    .bookImg{
+        display: none;
+    }
+    #searchinput button{
+      font-size: 1vh;   
+    }
+    .modal-dialog{
+        max-width: 550px;
+    }
+    
+}
+
+@media (max-width:500px){
+
+    #myModal1 form{
+        display: block;
+    }
+    #myModal1 form div{
+        
+    }
+    #myModal1 form div:nth-child(2), #myModal1 form div:nth-child(3){
+        display: inline-block;
+        vertical-align: top ;
+        border-left: none;
+    }
+}
+
+
+@media (max-width: 450px){
+    #details{
+        margin: auto;
+        display: block;
+
+    }
+    #details div{
+        width: 100%;
+        
+    }
+    .hideSm{
+        display: none;
+    }
+    #myModal1 form div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    #myModal1 form div input{
+       width: 40vh;
+       height: 40px;
+    }
+    .image-file-input{
+        width: 40vh;
+    }
+}
+
+
+  

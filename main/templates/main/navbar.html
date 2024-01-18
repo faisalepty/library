@@ -1,0 +1,118 @@
+
+
+
+<div id="nav">
+  <div class=""><p style="font-size: 0.4em; position: relative; bottom: 5px; top: 10px; right: 1px;">Dashboard</p><i class="bi bi-stack"></i></div>
+  <div class=""><p style="font-size: 0.5em; position: relative; bottom: 5px; top: 10px; right: 1px;">Books</p><i class="bi bi-book-half"></i></div>
+  <div class=""><p style="font-size: 0.5em; position: relative; bottom: 5px; top: 10px; right: 1px;">Members</p><i class="bi bi-people-fill"></i></div>
+  <div class=""><p style="font-size: 0.5em; position: relative; bottom: 5px; top: 10px; right: 1px;">Settings</p><i class="bi bi-gear-fill"></i></div>
+</div>
+  <div id="activeLink" class="bg-light d-flex justify-content-between align-items-baseline pt-2 mb-2">
+    {% if h%}
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong> Dashboard</strong></h5>
+    {% elif br %}
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Books</strong></h5>
+    {% endif %}
+    <div id="searchinput" class="d-flex ">
+      <form id="searchInput" class="">
+        <input class="me-2 hideSm" id="searchform" type="search" placeholder="Search" name="q">
+        <i class="bi bi-search d-none"></i>
+      </form>
+      <button class="addMemberBtn" type="button" data-bs-toggle="modal" data-bs-target="#myModal1">Add Member</button>
+      <button  class="addBookBtn" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Book</button>
+      </div>
+      <ul id="searchResults" class="bg-dark text-light d-none ps-0" style="width: 20%; position: absolute; right: 9%; top: 100%; z-index: 2; list-style: none;">
+        <li><h6 class="dropdown-header">Dropdown header</h6></li>
+        <li><a class="dropdown-item text-light" href="#">Action</a></li>
+        <li><a class="dropdown-item text-light" href="#">Another action</a></li>
+      </ul>
+    </div> 
+    <hr id="navdiv"> 
+
+     
+    {% if br %}
+    <div id="bookfilterbtn" class="d-flex">
+      <p>All Books(2000)</p>
+      <p>Borrowed Books(200)</p>
+      <p>Overdue Books(20)</p>
+  </div> 
+  {% endif %}
+
+  <div class="modal" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><strong>Add Book</strong></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="">
+          <p class="mb-1"><strong>BOOK NAME</strong></p>
+          <input class="modalInput" type="text">
+          <p class="mb-1"><strong>AUTHOR</strong></p>
+          <input type="text" class="modalInput">
+        </form>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="myModal1" tabindex="-1"  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" >
+        <div class="modal-header" style="min-width:100vh !important;">
+          <h5 class="modal-title" id="exampleModalLabel"><strong>Add Member</strong></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" class="" >
+          
+          <div >
+            <p><strong>MEMBERS PHOTO</strong></p>
+            <label class="image-file-input" for="imageFile" style="font-size: 3em; text-align: center;">+</label>
+            <input id="imageFile" type="file">
+          </div>
+          
+          <div>
+            <p class="mb-1"><strong>FIRST NAME</strong></p>
+          <input class="modalInput" type="text">
+          <p class="mb-1"><strong>SECOND NAME</strong></p>
+          <input class="modalInput" type="text">
+          <p class="mb-1"><strong>GENDER</strong></p>
+          <input type="text" class="modalInput">
+          <p class="mb-1"><strong>DOB</strong></p>
+          <input type="text" class="modalInput">
+          <p class="mb-1"><strong>ID No</strong></p>
+          <input type="text" class="modalInput">
+          <p class="mb-1"><strong>MEMBERSHIP</strong></p>
+          <input type="date" class="modalInput">
+          </div>
+          <div>
+            <p class="mb-1"><strong>ADDRESS</strong></p>
+          <input type="text" class="modalInput">
+          <p class="mb-1"><strong>MOBILE NO</strong></p>
+          <input type="text" class="modalInput">
+          <p class="mb-1"><strong>EMAIL</strong></p>
+          <input type="date" class="modalInput">
+          </div>
+        </form>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    
+  </section>
+
+
+
+  
+  
+
+ 

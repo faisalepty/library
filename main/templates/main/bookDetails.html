@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+
+{% block content %}
+{% include 'main/navbar.html' %}
+
+<div id='bookPage'>
+    <ul>
+        <li id="sectionHeader" class="d-flex justify-content-between ps-md-4 pe-md-4">
+         
+          
+          <p class="text-secondary text-start" style="width: 20%">BOOK NAME</p>
+          <p class="text-secondary text-start hideSm" style="width: 20%">BOOK AUTHOR</p>
+          <p class="text-secondary text-start" style="width: 20%">BOOK CODE</p>
+          <p class="text-secondary text-start" style="width: 20%">BOOK STATUS</p>
+          <p class="text-secondary text-start hideSm" style="width: 20%">ISSUED DATE</p>
+          <p class="text-secondary text-start hideSm" style="width: 20%">RETRUN DATE</p>
+          <p class="text-secondary text-start" style="width: 20%">ACTION</p>
+        </li>
+        <li>
+       <ul class="ps-0 ps-md-4 pe-md-4">
+        {% for book in books %}
+        <li class="listDIvider d-flex justify-content-between align-items-center text-dark">
+          
+          <p class="text-start d-flex"><span><img class="bookImg" height="30px" src="{{ book.img_url}}" alt=""></span> <span class="ms-2"> {{ book.title| slice:":15" }} </span> </p>
+          <p class="text-start hideSm">{{ book.author| slice:":8"}}</p>
+          <p>{{ book.book_id|stringformat:"s" |slice:":8" }}</p>
+          <p class="text-start">{{ book.author| slice:":8"}}</p>
+          <p class="text-start hideSm">19/05/2024</p>
+          <p class="text-start hideSm">19/05/2024</p>
+          <p class="text-start">{{ book.fee}}</p>
+        </li>
+        <hr >
+        {% endfor %}
+       </ul>
+        </li>
+      </ul>
+    
+</div>
+
+
+{% endblock content %}
