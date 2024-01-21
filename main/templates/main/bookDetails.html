@@ -25,10 +25,29 @@
           <p class="text-start d-flex"><span><img class="bookImg" height="30px" src="{{ book.img_url}}" alt=""></span> <span class="ms-2"> {{ book.title| slice:":15" }} </span> </p>
           <p class="text-start hideSm">{{ book.author| slice:":8"}}</p>
           <p>{{ book.book_id|stringformat:"s" |slice:":8" }}</p>
-          <p class="text-start">{{ book.author| slice:":8"}}</p>
+          <p class="text-start">{{ book.status }}</p>
           <p class="text-start hideSm">19/05/2024</p>
           <p class="text-start hideSm">19/05/2024</p>
-          <p class="text-start">{{ book.fee}}</p>
+         
+          <p style="width: 5px;">
+            <div class="dropdown">
+            <a href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#c"  style="position: absolute; left: 1vh;">
+            ...
+           </a>
+              <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Issue book</a></li>
+                <li>
+                  <button class="btn btn-primary updateBookBtn" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" data-bs-toggle="modal" data-bs-target="#myModal" id="{{book.book_id}}">Update</button>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">  <button id="{{book.book_id}}" class="btn btn-danger deleteBookBtn" style="font-size: 1vh; width: 30px; padding: 3px 2px;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</button></a>
+                </li>
+                
+              
+              </ul>
+            </div></p>
+          
+     
         </li>
         <hr >
         {% endfor %}

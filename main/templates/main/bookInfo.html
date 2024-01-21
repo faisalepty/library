@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block content%}
+{% include 'main/navbar.html' %}
+
+<section id="bookInfo" style="display: flex; justify-content: space-between; margin-left: 8%; margin-right: 2%; font-size: 0.7em;">
+    <div style="width: 69%;">
+        <div  style="background-color: white; height: 25vh; margin-bottom: 15px; padding: 20px; display: flex; height: fit-content;border-radius: 10px;">
+            <img height="150vh" src="{{ book.img_url}}" alt="" style="border-radius: 5px;">
+            <div style="padding: 0px 10px;">
+                <h3 style="font-size: 1em; font-weight: bolder ;">{{ book.title }}</h3>
+                <p class="mb-0">{{ book.description|slice:":400" }}</p>
+                <p><a href="">Read more</a></p>
+                <h4 style="font-size: 0.7em; font-weight: bold ;">By {{ book.author}}</h4>
+            </div>
+        
+        </div>
+        <div style="background-color: white; height: 40vh;">
+            <h3>Borrow history</h3>
+            
+    
+        </div>
+    </div>
+    <div style="width: 29%; background-color: white; height: fit-content; padding: 15px; border-radius: 10px;">
+        <h4 style="font-size: 0.8em; font-weight: bold ;">PUBLISHER</h4>
+        <p  style="font-size: 0.7em;">{{ book.publisher }}</p>
+        <h4 style="font-size: 0.8em; font-weight: bold ;">PUBLICATION DATE</h4>
+        <p  style="font-size: 0.7em;">{{ book.publish_date }}</p>
+        <h4 style="font-size: 0.8em; font-weight: bold ;">EDITION</h4>
+        <p  style="font-size: 0.7em;">{{ book.edtion }}</p>
+        <h4 style="font-size: 0.8em; font-weight: bold ;">LANGUAGE</h4>
+        <p  style="font-size: 0.7em;">{{ book.language }}</p>
+        <h4 style="font-size: 0.8em; font-weight: bold ;">GENRE</h4>
+        <p  style="font-size: 0.7em;">{{ book.genre }}</p>
+        <h4 style="font-size: 0.8em; font-weight: bold ;">NUMBER OF COPIES</h4>
+        <p  style="font-size: 0.7em;">{{ book.quantity }}</p>
+        <h4 style="font-size: 0.8em; font-weight: bold ;">PAGES</h4>
+        <p  style="font-size: 0.7em;">{{ book.pages }}</p>
+    </div>
+</section>
+
+{% endblock content%}

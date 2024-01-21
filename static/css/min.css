@@ -125,7 +125,7 @@ ul{
     margin-left: 8%;
     margin-top: 0;
 }
-#myModal form, #myModal1 form{
+#myModal1 form, #myModal form{
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -154,6 +154,32 @@ input[type="file"] {
 }
 .modal-dialog{
     max-width: 700px;
+}
+#myModal2 .modal-dialog{
+    width: 40%;
+}
+#myModal2 .modal-dialog i{
+    position: absolute;
+    left: 45%; 
+    background-color: rgb(224, 165, 165); 
+    color: red; 
+    padding: 2px 8px 3px 8px; 
+    border-radius: 18px; 
+    font-size: 1.2em;
+}
+#myModal2 .modal-dialog p:nth-child(2){
+    font-weight: bold;
+}
+#myModal2 .modal-dialog p:nth-child(3) {
+    font-size: 0.6em; 
+    padding: 0 20px;
+    color: #808080;
+    white-space: normal;
+}
+.delBtn{
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
 }
 
 .image-file-input {
@@ -285,11 +311,33 @@ input[type="file"] {
     #nav{
         width: 55px;
     }
+    .modalInput{
+        width: 95%;
+    }
+    #myModal form{
+        display: flex;
+        padding: 20px;
+    }
+    #myModal form input{
+        width: 90%;
+    }
+    
 }
 @media (min-width:779px) and (max-width:968px) {
     #details div{
         margin-left: 7px;
     }
+    .modalInput{
+        width: 95%;
+    }
+    #myModal form{
+        display: flex;
+        padding: 20px;
+    }
+    #myModal form input{
+        width: 90%;
+    }
+    
   
 }
 @media (max-width: 779px){
@@ -320,26 +368,66 @@ input[type="file"] {
     .modal-dialog{
         max-width: 550px;
     }
+    .modalInput{
+        width: 95%;
+    }
+    #myModal form{
+      
+        padding: 20px;
+    }
+    #myModal form input{
+        width: 90%;
+    }
     
 }
+@media (max-width: 600px){
+    #myModal2 .modal-dialog{
+        margin: auto;
+        width: 70%;
 
-@media (max-width:500px){
+    }
+}
+
+@media (min-width: 450px) and (max-width:500px){
 
     #myModal1 form{
         display: block;
+        position: relative;
     }
-    #myModal1 form div{
-        
+    .modalInput{
+        width: 60%;
     }
     #myModal1 form div:nth-child(2), #myModal1 form div:nth-child(3){
         display: inline-block;
         vertical-align: top ;
         border-left: none;
     }
+    #myModal1 form div:nth-child(3){
+        display: flex;
+        flex-direction: column;
+    }
+    #y{
+        position: absolute;
+        top: 30%;
+        left: 48%;
+    
+    }
+    #myModal form{
+        display: flex;
+        padding: 20px;
+    }
+    #myModal form input{
+        width: 90%;
+    }
+
+   
 }
 
 
 @media (max-width: 450px){
+    #myModal1 form{
+        display: block;
+    }
     #details{
         margin: auto;
         display: block;
@@ -358,12 +446,25 @@ input[type="file"] {
         align-items: center;
         
     }
+    #x{
+        position: relative;
+    }
+    #myModal1 form div strong{
+        position: absolute;
+        top: 2px;
+        left: 14px;        
+    }
     #myModal1 form div input{
-       width: 40vh;
+       width: 98%;
        height: 40px;
+       margin-top: 15px;
     }
     .image-file-input{
-        width: 40vh;
+        width: 90%;
+    }
+    #myModal form{
+        display: block;
+        padding: 20px;
     }
 }
 

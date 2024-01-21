@@ -20,6 +20,8 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
 <link rel="stylesheet" href="{% static 'css/min.css' %}">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -84,7 +86,314 @@ sideNav.addEventListener('mouseout', (e) => {
   });
 });
 
+const addBookFormBtn = document.getElementById('addbook');
+const navAddBookBtn = document.getElementsByClassName('addBookBtn')[0]
+
+navAddBookBtn.addEventListener('click', (e) => {
+  addBookFormBtn.classList.remove('d-none')
+    const updateBtn = document.getElementById('updatebtn') 
+    updateBtn.style.display = 'none'
+    const titleInput = document.getElementsByName('title')[0];
+    const authorInput = document.getElementsByName('author')[0];
+    const descriptionInput = document.getElementsByName('description')[0];
+    const languageInput = document.getElementsByName('language')[0];
+    const genresInput = document.getElementsByName('genres')[0];
+    const editionInput = document.getElementsByName('edition')[0];
+    const pagesInput = document.getElementsByName('pages')[0];
+    const publisherInput = document.getElementsByName('publisher')[0];
+    const publishDateInput = document.getElementsByName('publish_date')[0];
+    const imgUrlInput = document.getElementsByName('img_url')[0];
+    const quantityInput = document.getElementsByName('quantity')[0];
+    const feeInput = document.getElementsByName('fee')[0];
+
+    titleInput.value = '';
+            authorInput.value = '';
+            descriptionInput.value = '';
+            languageInput.value = '';
+            genresInput.value = '';
+            editionInput.value = '';
+            pagesInput.value = '';
+            publisherInput.value = '';
+            publishDateInput.value = '';
+            imgUrlInput.value = '';
+            quantityInput.value = '';
+            feeInput.value = '';
+})
+
+
+ addBookFormBtn.addEventListener('click', (e) => {
+ 
+      e.preventDefault()
+      const titleInput = document.getElementsByName('title')[0];
+    const authorInput = document.getElementsByName('author')[0];
+    const descriptionInput = document.getElementsByName('description')[0];
+    const languageInput = document.getElementsByName('language')[0];
+    const genresInput = document.getElementsByName('genres')[0];
+    const editionInput = document.getElementsByName('edition')[0];
+    const pagesInput = document.getElementsByName('pages')[0];
+    const publisherInput = document.getElementsByName('publisher')[0];
+    const publishDateInput = document.getElementsByName('publish_date')[0];
+    const imgUrlInput = document.getElementsByName('img_url')[0];
+    const quantityInput = document.getElementsByName('quantity')[0];
+    const feeInput = document.getElementsByName('fee')[0];
+    const csrfTokenInput = document.getElementById('csrf_token').firstChild;
+
+    const datar = {
+        'title': titleInput.value,
+        'author': authorInput.value,
+        'description': descriptionInput.value,
+        'language': languageInput.value,
+        'category': genresInput.value,
+        'edition': editionInput.value,
+        'pages': pagesInput.value,
+        'publisher': publisherInput.value,
+        'publish_date': publishDateInput.value,
+        'img_url': imgUrlInput.value,
+        'quantity': quantityInput.value,
+        'fee': feeInput.value,
+        'csrfmiddlewaretoken': csrfTokenInput.value
+    };
+        console.log(datar)
+      $.ajax({
+        type: 'POST',
+        url: '/newbook/',
+        headers: {'X-Requested-With': 'XMLHttpRequest'
+      },
+        data: datar,
+        success: (res) => {
+          console.log(res)
+          const inputs = Object.values(datar)
+          titleInput.value = '';
+            authorInput.value = '';
+            descriptionInput.value = '';
+            languageInput.value = '';
+            genresInput.value = '';
+            editionInput.value = '';
+            pagesInput.value = '';
+            publisherInput.value = '';
+            publishDateInput.value = '';
+            imgUrlInput.value = '';
+            quantityInput.value = '';
+            feeInput.value = '';
+        },
+        error: (res) => {
+          console.log(res)
+        }
+
+      })
+ })
+
+ const addMemberFormBtn = document.getElementById('addmember');
+const photoInput = document.getElementById('imageFile');
+const imgField = document.getElementById('imgField');
+ const csrfTokenInput = document.getElementById('modal1csrf_token').firstChild;
+
+
+
+const formData = new FormData();
+const formInputs = ['first_name', 'last_name', 'gender', 'age', 'address', 'mobile_no', 'email', 'national_id'];
+
+formInputs.forEach(inputName => {
+    const inputs = document.getElementsByName(inputName);
+
+    inputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                console.log(input, input.value);
+                formData.append(inputName, input.value);
+            });
+    });
+});
+
+
+formData.append('debt', 0);
+formData.append('csrfmiddlewaretoken', csrfTokenInput.value);
+photoInput.addEventListener('change', () => {
+  formData.append("profile_img", photoInput.files[0]);
+    if (photoInput.files.length > 0) {
+        imgField.childNodes.forEach(node => {
+            if (node.nodeType === 1) { 
+                node.classList.add('d-none');
+            }
+        });
+        const lastChild = imgField.lastChild;
+        if (lastChild.previousSibling) {
+            lastChild.previousSibling.classList.remove('d-none');
+        } 
+    }
+});
+
+
+addMemberFormBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    $.ajax({
+        type: 'POST',
+        url: '/newmember/',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        data: formData,
+        success: (res) => {
+            console.log(res);
+            formInputs.forEach(inputName => {
+                const input = document.getElementsByName(inputName)[0];
+                input.value = '';
+            });
+            photoInput.value = '';
+        },
+        error: (res) => {
+            console.log(res);
+        }
+    });
+});
+
+const updateBookBtn = document.getElementsByClassName('updateBookBtn')
+const buttonsArr = [...updateBookBtn]
+let status
+buttonsArr.forEach(btn => {
+  btn.addEventListener('click', (e) =>{
+    id = e.target.id
+  $.ajax({
+    type:'GET',
+    url: `/editbookinfo/${id}`,
+    success: (res) => {
+      console.log(res)
+      const titleInput = document.getElementsByName('title')[0];
+    const authorInput = document.getElementsByName('author')[0];
+    const descriptionInput = document.getElementsByName('description')[0];
+    const languageInput = document.getElementsByName('language')[0];
+    const genresInput = document.getElementsByName('genres')[0];
+    const editionInput = document.getElementsByName('edition')[0];
+    const pagesInput = document.getElementsByName('pages')[0];
+    const publisherInput = document.getElementsByName('publisher')[0];
+    const publishDateInput = document.getElementsByName('publish_date')[0];
+    const imgUrlInput = document.getElementsByName('img_url')[0];
+    const quantityInput = document.getElementsByName('quantity')[0];
+    const feeInput = document.getElementsByName('fee')[0];
+    status = res.data.status
+
+    titleInput.value = `${res.data.title}`;
+            authorInput.value = `${res.data.author}`;
+            descriptionInput.value = `${res.data.description}`;
+            languageInput.value = `${res.data.language}`;
+            genresInput.value = `${res.data.category}`;
+            editionInput.value = `${res.data.edition}`;
+            pagesInput.value = `${res.data.pages}`;
+            publisherInput.value = `${res.data.publisher}`;
+            publishDateInput.value = `${res.data.publish_date}`;
+            imgUrlInput.value = `${res.data.img_url}`;
+            quantityInput.value = `${res.data.quantity}`;
+            feeInput.value = `${res.data.fee}`;
+    addBookFormBtn.classList.add('d-none')
+    const updateBtn = document.getElementById('updatebtn') 
+    updateBtn.style.display = 'block'
+    }
+
+  })
+  })
+})
+
+
+const updateBtn = document.getElementById('updatebtn')
+
+updateBtn.addEventListener('click', (e) => {
+  const titleInput = document.getElementsByName('title')[0];
+    const authorInput = document.getElementsByName('author')[0];
+    const descriptionInput = document.getElementsByName('description')[0];
+    const languageInput = document.getElementsByName('language')[0];
+    const genresInput = document.getElementsByName('genres')[0];
+    const editionInput = document.getElementsByName('edition')[0];
+    const pagesInput = document.getElementsByName('pages')[0];
+    const publisherInput = document.getElementsByName('publisher')[0];
+    const publishDateInput = document.getElementsByName('publish_date')[0];
+    const imgUrlInput = document.getElementsByName('img_url')[0];
+    const quantityInput = document.getElementsByName('quantity')[0];
+    const feeInput = document.getElementsByName('fee')[0]; 
+    const csrfTokenInput = document.getElementById('csrf_token').firstChild;
   
+
+    const datar = {
+        'title': titleInput.value,
+        'author': authorInput.value,
+        'description': descriptionInput.value,
+        'language': languageInput.value,
+        'category': genresInput.value,
+        'edition': editionInput.value,
+        'pages': pagesInput.value,
+        'publisher': publisherInput.value,
+        'publish_date': publishDateInput.value,
+        'img_url': imgUrlInput.value,
+        'quantity': quantityInput.value,
+        'fee': feeInput.value,
+        'status': status,
+        'csrfmiddlewaretoken': csrfTokenInput.value
+    };
+        console.log(datar)
+      $.ajax({
+        type: 'POST',
+        url: `/editbookinfo/${id}`,
+        headers: {'X-Requested-With': 'XMLHttpRequest'
+      },
+        data: datar,
+        success: (res) => {
+          console.log(res)
+          const inputs = Object.values(datar)
+          titleInput.value = '';
+            authorInput.value = '';
+            descriptionInput.value = '';
+            languageInput.value = '';
+            genresInput.value = '';
+            editionInput.value = '';
+            pagesInput.value = '';
+            publisherInput.value = '';
+            publishDateInput.value = '';
+            imgUrlInput.value = '';
+            quantityInput.value = '';
+            feeInput.value = '';
+        },
+        error: (res) => {
+          console.log(res)
+        }
+
+      })
+})
+
+const deleteBookBtn = document.getElementsByClassName('deleteBookBtn')
+const btnArr = [...deleteBookBtn]
+let deleteCsrfToken
+let id
+btnArr.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    id = btn.id
+    $.ajax({
+      type: 'GET',
+      url: `/deletebook/${id}`,
+      success: (res) => {
+          console.log(res)
+          deleteCsrfToken = res.csrf_token
+      }
+    })
+  })
+})
+
+const delBtn = document.getElementsByClassName('delBtn')[0]
+
+delBtn.addEventListener('click', (e) => {
+    $.ajax({
+      type: 'POST',
+      data: {'csrfmiddlewaretoken': deleteCsrfToken},
+      url: `/deletebook/${id}`,
+      success: (res) => {
+          console.log(res)
+      }
+      
+      
+      })
+})
     
 </script>
 

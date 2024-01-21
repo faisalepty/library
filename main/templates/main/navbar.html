@@ -1,6 +1,6 @@
 
 
-
+{% load static %}
 <div id="nav">
   <div class=""><p style="font-size: 0.4em; position: relative; bottom: 5px; top: 10px; right: 1px;">Dashboard</p><i class="bi bi-stack"></i></div>
   <div class=""><p style="font-size: 0.5em; position: relative; bottom: 5px; top: 10px; right: 1px;">Books</p><i class="bi bi-book-half"></i></div>
@@ -39,72 +39,130 @@
   {% endif %}
 
   <div class="modal" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"><strong>Add Book</strong></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="">
-          <p class="mb-1"><strong>BOOK NAME</strong></p>
-          <input class="modalInput" type="text">
-          <p class="mb-1"><strong>AUTHOR</strong></p>
-          <input type="text" class="modalInput">
+        <form class="myForm" action="">
+
+          <div>
+           <span class="d-none" id="csrf_token">{% csrf_token %}</span>
+              <p class="mb-1"><strong>TITLE</strong></p>
+            <input class="modalInput" type="text" name="title">
+            <p class="mb-1"><strong>AUTHOR</strong></p>
+            <input type="text" class="modalInput" name="author">
+          <p class="mb-1"><strong>DESCRIPTION</strong></p>
+          <input type="text" class="modalInput" name="description">
+          <p class="mb-1"><strong>GENRES</strong></p>
+          <input type="text" class="modalInput" name="genres">
+          <p class="mb-1"><strong>EDITION</strong></p>
+          <input type="text" class="modalInput" name="edition">
+          <p class="mb-1"><strong>PAGES</strong></p>
+          <input type="number" class="modalInput" name="pages">
+
+            </div>
+          <div>
+            <p class="mb-1"><strong>LANGUAGE</strong></p>
+            <input type="text" class="modalInput" name="language">
+          <p class="mb-1"><strong>PUBLISHER</strong></p>
+          <input type="text" class="modalInput" name="publisher">
+          <p class="mb-1"><strong>PUBLISH DATE</strong></p>
+          <input type="text" class="modalInput" name="publish_date">
+          <p class="mb-1"><strong>IMAGE(url)</strong></p>
+          <input type="text" class="modalInput" name="img_url">
+          <p class="mb-1"><strong>QUANTITY</strong></p>
+          <input type="text" class="modalInput" name="quantity">
+          <p class="mb-1"><strong>FEE</strong></p>
+          <input type="text" class="modalInput" name="fee">
+          </div>
         </form>
         
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button id="addbook" type="button" class="btn btn-primary">Save changes</button>
+          <button id="updatebtn" type="button" class="btn btn-primary" style="display: none">update changes</button>
         </div>
       </div>
     </div>
   </div>
   <div class="modal" id="myModal1" tabindex="-1"  >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
       <div class="modal-content" >
         <div class="modal-header" style="min-width:100vh !important;">
           <h5 class="modal-title" id="exampleModalLabel"><strong>Add Member</strong></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="" class="" >
-          
-          <div >
+        <form class="myForm" action="" class="" >
+          <span class="d-none" id="modal1csrf_token">{% csrf_token %}</span>
+          <div id="imgField">
             <p><strong>MEMBERS PHOTO</strong></p>
             <label class="image-file-input" for="imageFile" style="font-size: 3em; text-align: center;">+</label>
-            <input id="imageFile" type="file">
+            <input id="imageFile" name="imageFile" type="file">
+            <img width="100vh" class="d-none m-3" src="{% static 'image/user_1177568.png' %}" alt="">
           </div>
           
           <div>
-            <p class="mb-1"><strong>FIRST NAME</strong></p>
-          <input class="modalInput" type="text">
-          <p class="mb-1"><strong>SECOND NAME</strong></p>
-          <input class="modalInput" type="text">
-          <p class="mb-1"><strong>GENDER</strong></p>
-          <input type="text" class="modalInput">
-          <p class="mb-1"><strong>DOB</strong></p>
-          <input type="text" class="modalInput">
-          <p class="mb-1"><strong>ID No</strong></p>
-          <input type="text" class="modalInput">
-          <p class="mb-1"><strong>MEMBERSHIP</strong></p>
-          <input type="date" class="modalInput">
+           <div id="x"> <p class="mb-1"><strong>FIRST NAME</strong></p>
+            <input class="modalInput" name="first_name" type="text"></div>
+          <div id="x">
+            <p class="mb-1"><strong>SECOND NAME</strong></p>
+          <input class="modalInput" name="second_name" type="text">
           </div>
-          <div>
-            <p class="mb-1"><strong>ADDRESS</strong></p>
-          <input type="text" class="modalInput">
-          <p class="mb-1"><strong>MOBILE NO</strong></p>
-          <input type="text" class="modalInput">
-          <p class="mb-1"><strong>EMAIL</strong></p>
-          <input type="date" class="modalInput">
+          <div id="x">
+            <p class="mb-1"><strong>GENDER</strong></p>
+          <input name="gender" type="text" class="modalInput">
+          </div>
+          <div id="x">
+            <p class="mb-1"><strong>AGE</strong></p>
+          <input name="age" type="text" class="modalInput">
+          </div>
+         <div id="x">
+          <p class="mb-1"><strong>ID No</strong></p>
+          <input name="national_id" type="text" class="modalInput">
+         </div>
+          </div>
+          <div id="y">
+           <div id="x"> <p class="mb-1"><strong>ADDRESS</strong></p>
+            <input name="address" type="text" class="modalInput"></div>
+          <div id="x">
+            <p class="mb-1"><strong>MOBILE NO</strong></p>
+          <input name="mobile_no" type="text" class="modalInput">
+          </div>
+          <div id="x">
+            <p class="mb-1"><strong>EMAIL</strong></p>
+          <input name="email" type="email" class="modalInput">
+          </div>
           </div>
         </form>
         
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button id="addmember" type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
   </div>
+
+
+  <div class="modal" id="myModal2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
+      <div class="modal-content" >
+        <div class="modal-header">
+        <i class="bi bi-exclamation-triangle"></i>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <p class="text-center">Are you sure?</p>
+        <p class="text-center">This action cannot be undone. All values associated with this field will be lost</p>
+        <button type="button" class="btn btn-danger delBtn">Delete Book</button>
+        <button type="button" class="btn btn-outline-secondary delBtn" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+
 
   <section>
     
