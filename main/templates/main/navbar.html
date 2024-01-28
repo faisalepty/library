@@ -2,30 +2,55 @@
 
 {% load static %}
 <div id="nav">
-  <div class=""><p style="font-size: 0.4em; position: relative; bottom: 5px; top: 10px; right: 1px;">Dashboard</p><i class="bi bi-stack"></i></div>
-  <div class=""><p style="font-size: 0.5em; position: relative; bottom: 5px; top: 10px; right: 1px;">Books</p><i class="bi bi-book-half"></i></div>
-  <div class=""><p style="font-size: 0.5em; position: relative; bottom: 5px; top: 10px; right: 1px;">Members</p><i class="bi bi-people-fill"></i></div>
-  <div class=""><p style="font-size: 0.5em; position: relative; bottom: 5px; top: 10px; right: 1px;">Settings</p><i class="bi bi-gear-fill"></i></div>
+  
+  <div class="{% if not h%} unactive {% else %} active {% endif %}"><p style="font-size: 0.4em;"><a href="{% url 'home' %}">Dashboard</a></p><i class="bi bi-stack"></i></div>
+</a>
+  <div class="{% if not br%} unactive {% else %} active navborder{% endif %}"><p style="font-size: 0.5em;  margin-right: 4px;"><a href="{% url 'bookdetails'%}">Books</a></p><i class="bi bi-book-half"></i></div>
+  <div class="{% if not mr%} unactive {% else %} active {% endif %}"><p style="font-size: 0.5em;"><a href="{% url 'membersdetails' %}">Members</a></p><i class="bi bi-people-fill"></i></div>
+  <div class=""><p style="font-size: 0.5em;">Settings</p><i class="bi bi-gear-fill"></i></div>
 </div>
-  <div id="activeLink" class="bg-light d-flex justify-content-between align-items-baseline pt-2 mb-2">
+  <div id="activeLink" class="bg-light d-flex justify-content-between align-items-baseline pt-2">
     {% if h%}
     <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong> Dashboard</strong></h5>
     {% elif br %}
     <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Books</strong></h5>
+    {% elif bi %}
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Books</strong><small class="ms-4">&gt&gt</small> {{ book.title }} </h5>
+    {% elif mr %}
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Members</strong></h5>
+    {% elif mi %}
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Members</strong><small class="ms-4">&gt&gt</small> {{ member.first_name }} {{ member.last_name }}</h5>
     {% endif %}
-    <div id="searchinput" class="d-flex ">
-      <form id="searchInput" class="">
+    <div id="searchinput" class="d-flex " style="position: relative;">
+      <form action="{% url 'home' %}" method="GET" id="searchInput" class="d-flex">
         <input class="me-2 hideSm" id="searchform" type="search" placeholder="Search" name="q">
-        <i class="bi bi-search d-none"></i>
+        <input class="d-none" name="searchType" type="text">
+        
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="#" role="button" id="searchFilter" data-bs-toggle="dropdown">
+            All
+          </a>
+        
+          <ul class="dropdown-menu" id="searchFilterDrpDown" >
+            <li class="ps-1" id="All">All</li>
+            <li class="ps-3"><small id="title">Title</small></li>
+            <li class="ps-3"><small id="author">Author</small></li>
+            <li class="ps-1" id="member">Member</li>
+          </ul>
+        </div>
+        <button style="  border: none;
+        background-color: #F8F9FA;
+        font-size: 1.3em;" id="searchBtn" type="submit"><i type="submit" class="bi bi-search"></i></button>
       </form>
-      <button class="addMemberBtn" type="button" data-bs-toggle="modal" data-bs-target="#myModal1">Add Member</button>
-      <button  class="addBookBtn" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Book</button>
-      </div>
-      <ul id="searchResults" class="bg-dark text-light d-none ps-0" style="width: 20%; position: absolute; right: 9%; top: 100%; z-index: 2; list-style: none;">
+      <button class="addMemberBtn mb-2" type="button" data-bs-toggle="modal" data-bs-target="#myModal1">Add Member</button>
+      <button  class="addBookBtn mb-2" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Book</button>
+      <ul id="searchResults" class="text-light d-none ps-0" style="width: 250px; position: absolute; top: 65%; z-index: 2; list-style: none; background-color: white; border: 1px solid grey; border-top: none;">
         <li><h6 class="dropdown-header">Dropdown header</h6></li>
         <li><a class="dropdown-item text-light" href="#">Action</a></li>
         <li><a class="dropdown-item text-light" href="#">Another action</a></li>
       </ul>
+      </div>
+   
     </div> 
     <hr id="navdiv"> 
 
@@ -56,7 +81,7 @@
           <p class="mb-1"><strong>DESCRIPTION</strong></p>
           <input type="text" class="modalInput" name="description">
           <p class="mb-1"><strong>GENRES</strong></p>
-          <input type="text" class="modalInput" name="genres">
+          <input type="text" class="modalInput" name="category">
           <p class="mb-1"><strong>EDITION</strong></p>
           <input type="text" class="modalInput" name="edition">
           <p class="mb-1"><strong>PAGES</strong></p>
@@ -90,7 +115,7 @@
   <div class="modal" id="myModal1" tabindex="-1"  >
     <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
       <div class="modal-content" >
-        <div class="modal-header" style="min-width:100vh !important;">
+        <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"><strong>Add Member</strong></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -103,34 +128,34 @@
             <img width="100vh" class="d-none m-3" src="{% static 'image/user_1177568.png' %}" alt="">
           </div>
           
-          <div>
-           <div id="x"> <p class="mb-1"><strong>FIRST NAME</strong></p>
+          <div id="x">
+           <div> <p class="mb-1"><strong>FIRST NAME</strong></p>
             <input class="modalInput" name="first_name" type="text"></div>
-          <div id="x">
+          <div>
             <p class="mb-1"><strong>SECOND NAME</strong></p>
-          <input class="modalInput" name="second_name" type="text">
+          <input class="modalInput" name="last_name" type="text">
           </div>
-          <div id="x">
+          <div>
             <p class="mb-1"><strong>GENDER</strong></p>
           <input name="gender" type="text" class="modalInput">
           </div>
-          <div id="x">
+          <div>
             <p class="mb-1"><strong>AGE</strong></p>
           <input name="age" type="text" class="modalInput">
           </div>
-         <div id="x">
+         <div>
           <p class="mb-1"><strong>ID No</strong></p>
           <input name="national_id" type="text" class="modalInput">
          </div>
           </div>
           <div id="y">
-           <div id="x"> <p class="mb-1"><strong>ADDRESS</strong></p>
+           <div> <p class="mb-1"><strong>ADDRESS</strong></p>
             <input name="address" type="text" class="modalInput"></div>
-          <div id="x">
+          <div>
             <p class="mb-1"><strong>MOBILE NO</strong></p>
           <input name="mobile_no" type="text" class="modalInput">
           </div>
-          <div id="x">
+          <div>
             <p class="mb-1"><strong>EMAIL</strong></p>
           <input name="email" type="email" class="modalInput">
           </div>
@@ -140,6 +165,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button id="addmember" type="button" class="btn btn-primary">Save changes</button>
+          <button id="updateMember" type="button" class="btn btn-primary d-none">Update</button>
         </div>
       </div>
     </div>
@@ -163,10 +189,77 @@
     </div>
   </div>
 
+  <div class="modal" id="myModal3" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><strong>Add Member</strong></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-  <section>
-    
-  </section>
+        
+        <form class="d-flex flex-column align-items-center justify-content-between" action="">
+          
+          <span class="d-none" id="modal3csrf_token">{{csrf_token}}</span>
+         <div>
+          <p>Select member</p>
+          <input id="memberInput" type="text">
+          <div id="memberDropDown">
+
+          </div>
+         </div>
+          
+          
+        <div>
+          <p>Select book</p>
+          <input id="bookInput" type="text">
+          <div id="bookDropDown">
+           
+          </div>
+        </div>
+        <div>
+          <p>Return Date</p>
+          <input id="dateInput" type="text">
+        </div>
+        <button id="postIssueBookBtn" type="button" class="btn btn-secondary">Issue Book</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" id="myModal4" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
+      <div class="modal-content" >
+       <i class="bi bi-check-lg"></i>
+      <p>Success</p>
+      <p>Your data has been successfully saved</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" id="myModal5" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
+      <div class="modal-content" >
+        <div class="modal-header">
+        <i class="bi bi-exclamation-triangle"></i>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <p class="text-center">Are you sure?</p>
+        <p class="text-center">This action cannot be undone. All values associated with this field will be lost</p>
+        <span class="d-none" id="updateStatusCsrfToken">
+          {% csrf_token%}
+        </span>
+        <input id="amntPaid" type="number">
+        <button type="button" class="btn btn-danger" id="updateStatusBtn">Delete Book</button>
+        <button type="button" class="btn btn-outline-secondary " data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+
 
 
 

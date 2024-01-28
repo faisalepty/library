@@ -1,13 +1,13 @@
 import csv
 import random
-# from main.models import Book
+from main.models import Book
 
-with open('books_1.Best_Books_Ever.csv', 'r', newline='', encoding='utf-8') as file:
+with open('../data/books_1.Best_Books_Ever.csv', 'r', newline='', encoding='utf-8') as file:
 
     data = csv.DictReader(file)
-    i = 0
+    i = 150
     for line in data:
-        if i < 50:
+        if i < 180:
             title = line['title']
             print(title)
             author = line['author']
@@ -23,8 +23,8 @@ with open('books_1.Best_Books_Ever.csv', 'r', newline='', encoding='utf-8') as f
             else:
                 publish_date = f'20{line["publishDate"][6:8]}-{line["publishDate"][0:2]}-{line["publishDate"][3:5]}'
             img_url = line['coverImg']
-            quantity = random.randint(1, 10)
+            quantity = random.randint(1, 5)
             fee = random.randint(150, 300)
-            print(f" 'title': {title}, \n 'author': {author}, \n 'description': {description}, \n 'language': {language}, \n  'category': {genres}, \n 'edition': {edition}, \n 'pages': {pages}, \n  'publisher': {publisher}, \n 'publish_date': {publish_date}, \n 'img_url': {img_url}, \n 'quantity'{quantity}, \n 'fee': {fee} \n \n")
-            # Book.objects.create(title=title, author=author, description=description, language=language, category=genres, edition=edition, pages=pages, publisher=publisher, publish_date=publish_date, img_url=img_url, quantity=quantity, fee=fee)
+            print(f" 'title': {title}, \n 'author': {author}, \n ")
+            Book.objects.create(title=title, author=author, description=description, language=language, category=genres, edition=edition, pages=pages, publisher=publisher, publish_date=publish_date, img_url=img_url, quantity=quantity, fee=fee, status='On shelf')
             i = i + 1

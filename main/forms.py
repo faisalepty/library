@@ -1,5 +1,5 @@
 from django import forms
-from .models import Book, Member
+from .models import Book, Member, Transaction
 
 
 
@@ -12,3 +12,8 @@ class Newmemberform(forms.ModelForm):
     class Meta:
         model = Member
         fields = '__all__'
+
+class Transactionform(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['book', 'member', 'return_date', 'fine', 'status', 'copyId']

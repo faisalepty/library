@@ -1,0 +1,67 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% include 'main/navbar.html' %}
+
+<div id='bookPage'>
+    <ul>
+        <li id="sectionHeader" class="d-flex justify-content-between ps-md-4 pe-md-4">
+         
+          
+          <p class="text-secondary text-start" style="width: 20%">NAME</p>
+          <p class="text-secondary text-start hideSm" style="width: 20%">ID</p>
+          <p class="text-secondary text-start" style="width: 20%">MOBILE NO</p>
+          <p class="text-secondary text-start" style="width: 20%">ISSUED BOOK(s)</p>
+          <p class="text-secondary text-start hideSm" style="width: 20%">DEBT</p>
+         
+          <p class="text-secondary text-start" style="width: 20%">ACTION</p>
+        </li>
+        <li>
+       <ul class="ps-0 ps-md-4 pe-md-4">
+        {% for member in members %}
+        <li class="listDIvider d-flex justify-content-between align-items-center text-dark">
+          
+          <p class="text-start d-flex"><span><img class="bookImg" height="30px" src="{{ book.img_url}}" alt=""></span> <span class="ms-2" > {{ member.first_name}} {{ member.last_name}} </span> </p>
+          <p class="text-start hideSm">{{ member.member_id|stringformat:"s" |slice:":5"}}</p>
+          <p>{{ member.mobile_no }}</p>
+          {% with issuedBooks=member.transaction_set.all  %}
+          <p class="text-start">{{ issuedBooks.count }}</p>
+          {% endwith %}
+          <p class="text-start hideSm">0.0</p>
+         
+          <p style="width: 5px;">
+            <div class="dropdown">
+            <a href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#c"  style="position: absolute; left: 1vh;">
+            ...
+           </a>
+           <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#"><button class="btn btn-primary issueBookBtn m" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" data-bs-toggle="modal" data-bs-target="#myModal3" id="{{ member.first_name }} {{ member.last_name }}">Issue book</button></a></li>
+            <li>
+              <a class="dropdown-item" href="#">
+              <button class="btn btn-primary updateMemberBtn" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" data-bs-toggle="modal" data-bs-target="#myModal1" id="{{member.member_id}}">Update</button>
+            </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'memberinfo' member.member_id%}">
+              <button class="btn btn-primary updatememberBtn" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" id="{{ member.member_id }}">Member details</button>
+            </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">  <button id="{{member.member_id}}" class="btn btn-danger deleteMemberBtn" style="font-size: 1vh; width: 30px; padding: 3px 2px;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</button></a>
+            </li>
+            
+          
+        </div></p>
+          
+     
+        </li>
+        <hr >
+        {% endfor %}
+       </ul>
+        </li>
+      </ul>
+    
+</div>
+
+
+{% endblock content %}
