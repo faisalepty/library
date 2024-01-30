@@ -55,12 +55,15 @@ const setDropdownValues = (dropdown, input, queryKey) => {
     if (e.target.tagName === 'P') {
       input.value = e.target.innerText;
       e.target.style.display = 'none';
+      dropdown.style.display = 'none';
+      input.style.borderRadius = '10px'
     }
   });
 
   document.addEventListener('click', (e) => {
     if (!dropdown.contains(e.target) && e.target !== input) {
       dropdown.style.display = 'none';
+      input.style.borderRadius = '10px'
     }
   });
 
@@ -74,22 +77,32 @@ const setDropdownValues = (dropdown, input, queryKey) => {
       data: { [queryKey]: query },
       success: (res) => {
         if (input.value !== '') {
-        
+          input.style.borderRadius = '10px 10px 0 0'
+         
         if(res.members){
             const dropdownHtml = res['members'].reduce((acc, item) => {
                 return acc + `<p class='mb-0 ps-2' style="font-size: 0.5em; height: 14px; overflow: hidden;">${item}</p>`;
               }, '');
     
               dropdown.innerHTML = dropdownHtml;
-        }else{
+              if(!res.members || res.members.length === 0){
+                console.log('we top')
+                dropdown.innerHTML = "<p class='mb-0 ps-2' style='font-size: 0.5em; height: 14px; overflow: hidden;'>No matching value found</p>"
+              }
+        }else if(res.books){
             const dropdownHtml = res['books'].reduce((acc, item) => {
                 return acc + `<p class='mb-0 ps-2' style="font-size: 0.5em; height: 14px; overflow: hidden;">${item}</p>`;
               }, '');
     
               dropdown.innerHTML = dropdownHtml;
+              if(!res.books || res.books.length === 0 ){
+                dropdown.innerHTML = "<p class='mb-0 ps-2' style='font-size: 0.5em; height: 14px; overflow: hidden;'>No matching value found</p>"
+              }
         }
+        
          
         } else {
+          input.style.borderRadius = '10px'
           dropdown.style.display = 'none';
         }
       },

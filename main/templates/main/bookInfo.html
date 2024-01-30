@@ -40,9 +40,9 @@
                         ...
                        </a>
                        <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li>
+                        <li type="button" data-bs-toggle="modal" data-bs-target="#myModal5">
                           <a class="dropdown-item" href="#">
-                          <p class="updateBookStatus" style="font-size:0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal5" id="{{transaction.copyId}}" amount="{{ transaction.book.fee }}">Update</p>
+                          <p class="updateBookStatus" style="font-size:0.8em;"  id="{{transaction.copyId}}" amount="{{ transaction.book.fee }}">Update</p>
                         </a>
                         </li>
                         <li>

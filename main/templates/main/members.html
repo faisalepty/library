@@ -35,10 +35,10 @@
             ...
            </a>
            <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#"><p class="issueBookBtn m" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal3" id="{{ member.first_name }} {{ member.last_name }}">Issue book</p></a></li>
-            <li>
+            <li data-bs-toggle="modal" data-bs-target="#myModal3"><a class="dropdown-item" href="#"><p class="issueBookBtn m" style="font-size: 0.8em;" type="button"  id="{{ member.first_name }} {{ member.last_name }}">Issue book</p></a></li>
+            <li type="button" data-bs-toggle="modal" data-bs-target="#myModal1">
               <a class="dropdown-item" href="#">
-              <p class="updateMemberBtn" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal1" id="{{member.member_id}}">Update</p>
+              <p class="updateMemberBtn" style="font-size: 0.8em;"  id="{{member.member_id}}">Update</p>
             </a>
             </li>
             <li>
@@ -46,8 +46,8 @@
               <p class="updatememberBtn" style="font-size: 0.8em;" type="button" id="{{ member.member_id }}">Member details</p>
             </a>
             </li>
-            <li>
-              <a class="dropdown-item" href="#">  <p id="{{member.member_id}}" class="deleteMemberBtn" style="font-size: 0.8em;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</p></a>
+            <li data-bs-toggle="modal" data-bs-target="#myModal2">
+              <a class="dropdown-item" href="#">  <p id="{{member.member_id}}" class="deleteMemberBtn" style="font-size: 0.8em;">Delete</p></a>
             </li>
             
           

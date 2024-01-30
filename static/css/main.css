@@ -166,7 +166,7 @@ input:focus {
     color: rgb(65, 119, 226);
     border: 1px solid rgb(65, 119, 226);
 }
-#addbook, #updatebtn, #addmember, #updateMember, #updateStatusBtn{
+#addbook, #updatebtn, #addmember, #updateMember, #updateStatusBtn, #postIssueBookBtn{
     background-color: rgb(65, 119, 226);
     padding:5px 13px;
     margin-right: 5px;
@@ -337,7 +337,9 @@ textarea[name="address"]{
 }
 #memberDropDown, #bookDropDown{
     max-height: 190px; 
-    background-color: rgb(170, 190, 206); 
+    background-color: rgb(231 231 231); 
+    border-radius: 0 0 10px 10px;
+    width: 98%;
     display: none; 
     overflow-y: scroll;
 }

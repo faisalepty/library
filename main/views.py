@@ -51,7 +51,7 @@ def Home(request):
         # Handle different search types (member, title, author)
         if qType == 'member':
             userSearch = members.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query))
-            context = {'members': userSearch}
+            context = {'members': userSearch, 'mr': 'mr'}
             return render(request, 'main/members.html', context)
         elif qType in ['title', 'author']:
             bookSearch = bookSearch.filter(Q(title__icontains=query) | Q(author__icontains=query))
@@ -121,7 +121,7 @@ def IssueBook(request):
                 break
 
         if book.quantity > 0:
-            if member.debt < 500:
+            if (member.debt + book.fee)  < 500:
                     
                 form = Transactionform({'book': book, 'member': member, 'return_date': return_date, 'copyId': copyId, 'fine': 0, 'status': 'pending'})
 
@@ -136,7 +136,7 @@ def IssueBook(request):
                     form_errors = {field: errors[0] for field, errors in form.errors.items()}
                     return JsonResponse({'error': 'form validation error. Please ensure you fill in the required fields', 'errors': form_errors})
             else:
-                return JsonResponse({'error': f'current members debt: {member.debt} is more than Ksh 500'})
+                return JsonResponse({'error': f'book issuance declined\n current members debt: {member.debt} \n Debt after book issue {member.debt + book.fee}'})
         else:
             return JsonResponse({'error': 'all books issued'})
 

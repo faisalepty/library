@@ -42,6 +42,11 @@
 
 const searchPlaceHolder = document.getElementById('searchform');
 const searchType1 = document.getElementById('searchFilterDrpDown');
+const inputs = document.getElementsByTagName('input');
+
+Array.from(inputs).forEach(input => {
+    input.setAttribute('autocomplete', 'off')
+})
 
 Array.from(searchType1.childNodes).forEach(type => {
   type.addEventListener('click', (e) => {
