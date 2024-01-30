@@ -13,9 +13,8 @@
 
   <div id="details" class="">
     <div class="ps-3 mb-3">
-     
         <i class="bi bi-book-fill" style="color: #FFD700; margin-left: 2%;"></i>
-        <i class="bi bi-chevron-down" style="margin-left: 72%;"></i>
+        <i class="bi bi-chevron-down" style="margin-left: 80%;"></i>
        <span>
         <h3 class="mb-0 pt-2"><strong>{{books.count }}</strong></h3>
         <p class="mb-0">Book Titles</p>
@@ -28,14 +27,14 @@
     <div class="ps-3 mb-3">
      
         <i class="bi bi-people-fill" style="color: #FFD700; margin-left: 2%;"></i>
-        <i class="bi bi-chevron-down" style="margin-left: 72%;"></i>
+        <i class="bi bi-chevron-down" style="margin-left: 80%;"></i>
         <h3 class="mb-0 pt-2"><strong>{{ members.count }}</strong></h3>
         <p class="mb-0">Members</p>
     </div>
     <div class="ps-3 mb-3">
      
         <i class="bi bi-book-fill" style="color: #FFD700; margin-left: 2%;"></i>
-        <i class="bi bi-chevron-down" style="margin-left: 72%;"></i>
+        <i class="bi bi-chevron-down" style="margin-left: 80%;"></i>
        
         <h3 class="mb-0 pt-2"><strong>{{issuedCopies}}</strong></h3>
         <p class="mb-0">Issued Copies</p>
@@ -43,7 +42,7 @@
     <div class="ps-3 mb-3">
      
         <i class="bi bi-book-fill" style="color: #FFD700; margin-left: 2%;"></i>
-        <i class="bi bi-chevron-down" style="margin-left: 72%;"></i>
+        <i class="bi bi-chevron-down" style="margin-left: 80%;"></i>
         <h3 class="mb-0 pt-2"><strong>{{ extendedCopies }}</strong></h3>
         <p class="mb-0">Extended Copies</p>
     </div>
@@ -105,8 +104,8 @@
     </div>
     <div id="membersList">
       <div class="listHeader">
-        <h3>Books List</h3>
-      <span>View All &gt&gt</span>
+        <h3>Members List</h3>
+      <span><a href="{% url 'membersdetails' %}">View All &gt&gt</a></span>
       </div>
       <hr>
       <ul>
@@ -155,50 +154,5 @@
   
 
 </section>
-
-
-<!-- <div id="books" class="row">
-
-
-<table class="table bg-secondary text-light">
-  <thead class="bg-primary">
-    <tr>
-      <th scope="col">Sr. No</th>
-      <th scope="col"></th>
-      <th scope="col">TITLE</th>
-      <th scope="col">AUTHOR</th>
-      <th scope="col">BOOK PRICE(Ksh)</th>
-
-    </tr>
-  </thead>
- <tbody>
-  {% for book in books %}
-  <tr>
-    <td><p>{{ book.book_id|stringformat:"s" |slice:":8" }}</p></td>
-    <td><img height="40px" src="{{ book.img_url}}" alt=""></td>
-    <td><p class="">{{ book.title }}</p></td>
-    <td><p class="">{{ book.author}}</p></td>
-    <td><p class="">{{ book.fee}}</p></td>
-  </tr>
-  {% endfor %}
- </tbody>
-
- 
-</table>
-
-<div class="col-2 col-lg-4 d-flex flex-fill mb-3">
-    <div class="card" style="width: 130%; z-index: 1;">
-        <img height="150px"   src="{{ book.img_url}}" class="card-img-top image-fluid" alt="...">
-        <div class="card-body">
-          <p class="card-title">{{ book.title|slice:":20" }}...</p>
-          <p class="card-title text-muted">{{ book.author|slice:":15" }}...</p>
-        </div>
-      </div>
-</div>
-
-
-    
-</div> -->
-
 
 {% endblock content %}
