@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load custom_filters %}
 
 {% block content %}
 {% include 'main/navbar.html' %}
@@ -13,7 +13,7 @@
           <p class="text-secondary text-start hideSm" style="width: 20%">BOOK AUTHOR</p>
           <p class="text-secondary text-start" style="width: 20%">BOOK CODE</p>
           <p class="text-secondary text-start" style="width: 20%">BOOK STATUS</p>
-          <p class="text-secondary text-start hideSm" style="width: 20%">ISSUED DATE</p>
+          <p class="text-secondary text-start hideSm" style="width: 20%">FEE(Ksh)</p>
          
           <p class="text-secondary text-start" style="width: 20%">ACTION</p>
         </li>
@@ -25,28 +25,28 @@
           <p class="text-start d-flex"><span><img class="bookImg" height="30px" src="{{ book.img_url}}" alt=""></span> <span class="ms-2" > {{ book.title| slice:":15" }} </span> </p>
           <p class="text-start hideSm">{{ book.author| slice:":8"}}</p>
           <p>{{ book.book_id|stringformat:"s" |slice:":8" }}</p>
-          <p class="text-start">{{ book.status }}</p>
-          <p class="text-start hideSm">19/05/2024</p>
+          <p class="text-start ps-3"><span id="{{ book.title }}">{{ book.quantity }}</span>/{{book.copy_ids| split_length}} available</p>
+          <p class="text-start hideSm ps-3">{{ book.fee}}</p>
          
           <p style="width: 5px;">
-            <div class="dropdown">
-            <a href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#c"  style="position: absolute; left: 1vh;">
+            <div class="dropdown" style="left: 17px;">
+            <a href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#c" class="action">
             ...
            </a>
               <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#"><button class="btn btn-primary issueBookBtn" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" data-bs-toggle="modal" data-bs-target="#myModal3" id="{{book.title}}">Issue book</button></a></li>
+                <li><a class="dropdown-item" href="#"><p class="issueBookBtn" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal3" id="{{book.title}}">Issue book</p></a></li>
                 <li>
                   <a class="dropdown-item" href="#">
-                  <button class="btn btn-primary updateBookBtn" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" data-bs-toggle="modal" data-bs-target="#myModal" id="{{book.book_id}}">Update</button>
+                  <p class="updateBookBtn" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal" id="{{book.book_id}}">Update</p>
                 </a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="{% url 'bookinfo' book.book_id %}">
-                  <button class="btn btn-primary updateBookBtn" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" id="{{book.book_id}}">Book details</button>
+                  <p class="updateBookBtn" style="font-size: 0.8em;" type="button" id="{{book.book_id}}">Book details</p>
                 </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">  <button id="{{book.book_id}}" class="btn btn-danger deleteBookBtn" style="font-size: 1vh; width: 30px; padding: 3px 2px;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</button></a>
+                  <a class="dropdown-item" href="#">  <p id="{{book.book_id}}" class="deleteBookBtn" style="font-size: 0.8em;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</p></a>
                 </li>
                 
               

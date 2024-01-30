@@ -8,15 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
 <link rel="stylesheet" href="{% static 'css/main.css' %}">
-<script src="{% static 'css/min.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body >
@@ -33,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="{% static 'js/addBook.js' %}"></script>
     <script src="{% static 'js/addMember.js' %}"></script>
-    <script src="{% static 'js/UpdateBook.js' %}"></script>
+    <script src="{% static 'js/updateBook.js' %}"></script>
     <script src="{% static 'js/deleteBook.js' %}"></script>
     <script src="{% static 'js/issueBook1.js' %}"></script>
     <script src="{% static 'js/updateMember.js' %}"></script>
@@ -42,23 +40,71 @@
 <script>
 
 
+const searchPlaceHolder = document.getElementById('searchform');
+const searchType1 = document.getElementById('searchFilterDrpDown');
+
+Array.from(searchType1.childNodes).forEach(type => {
+  type.addEventListener('click', (e) => {
+    searchPlaceHolder.placeholder = `Search by ${e.target.innerText}`
+    if (e.target.innerText == 'All'){
+      searchPlaceHolder.placeholder = 'Search by Title, Author'
+    }else if(e.target.innerText == 'Member'){
+      searchPlaceHolder.placeholder = 'Search by Name'
+    }
+    
+  })
+})
+
+
+
+
+
 const updateStatus = document.querySelectorAll('.updateBookStatus');
+const updateStatusModal = document.getElementById('myModal5');
 const updateStatusBtn = document.getElementById('updateStatusBtn');
-const updateStatusCsrfToken = document.getElementById('updateStatusCsrfToken');
+const updateStatusCsrfToken = document.getElementById
+('updateStatusCsrfToken');
+const Status = document.getElementsByClassName('status')[0];
+const copyQuantity = document.getElementsByClassName('copyQuantity')[0];
+const Debt = document.getElementsByClassName('debt')[0];
 const amountPaid = document.getElementById('amntPaid');
-console.log('hh', updateStatusCsrfToken.firstElementChild.value, 'hh')
+const amount = document.getElementById('amount');
 let copyId
+let paid
+let currentStatus
 updateStatus.forEach(btn => {
   btn.addEventListener('click', (e) => {
+    console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('status')[0])
+    currentStatus = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('status')[0];
     copyId = e.target.id
+    paid = e.target.getAttribute('amount')
+    amount.innerText = `ksh ${e.target.getAttribute('amount')}`
+    amountPaid.setAttribute('max', e.target.getAttribute('amount'))
   })
 })
 updateStatusBtn.addEventListener('click', (e) => {
+  
   $.ajax({
     type: 'POST',
     data: {'csrfmiddlewaretoken': updateStatusCsrfToken.firstElementChild.value, 'amountPaid': amountPaid.value},
     url: `/updatebookreturn/${copyId}`,
     success: (res) => {
+      updateStatusModal.classList.remove('show')
+      updateStatusModal.style.display = 'none'
+      
+      if(copyQuantity){
+        console.log(copyQuantity.innerText, parseInt(copyQuantity.innerText))
+      copyQuantity.innerText = parseInt(copyQuantity.innerText) + 1
+     
+      }
+      if(currentStatus){
+        currentStatus.innerText = 'returned'
+      }
+      if(Debt){
+       Debt.innerText = parseInt(Debt.innerText) - paid
+      }
+      
+      successAlert(res.success)
       console.log(res)
     }
   })
@@ -84,13 +130,21 @@ searchChildNodesArr.forEach(child => {
 
 
 
-function successAlert(){
+function successAlert(success){
   const successmodal = document.getElementById('myModal4');
   const backdrop = document.getElementsByClassName('modal-backdrop')
   [0];
+  const type = document.querySelector('.type')
+  const message = document.querySelector('.message')
   const body = document.getElementsByTagName('body')[0];
+  
   successmodal.classList.add('show');
   successmodal.style.display = 'block'
+  
+  type.classList.add('bi', 'bi-check-circle')
+  type.style.backgroundColor = 'rgb(135, 221, 154)'
+  type.style.color = 'green'
+  message.innerText = success
   setTimeout(function(){
     successmodal.classList.remove('show')
     body.classList.remove('modal-open')
@@ -100,6 +154,29 @@ function successAlert(){
   }, 2000)
 }
 
+
+function errorAlert(error){
+  const errormodal = document.getElementById('myModal4');
+  const backdrop = document.getElementsByClassName('modal-backdrop')
+  [0];
+  const type = document.querySelector('.type')
+  const message = document.querySelector('.message')
+  const body = document.getElementsByTagName('body')[0];
+
+  type.classList.add('bi', 'bi-exclamation-triangle')
+  type.style.backgroundColor = 'rgb(224, 165, 165)'
+  type.style.color = 'red'
+  message.innerText = error
+  errormodal.classList.add('show');
+  errormodal.style.display = 'block'
+  setTimeout(function(){
+    errormodal.classList.remove('show')
+    body.classList.remove('modal-open')
+    errormodal.style.display = 'none'
+    body.style = ''
+    backdrop.remove()
+  }, 2000)
+}
     // const searchInput = document.getElementById('searchform');
     // const searchBtn = document.getElementById('searchbtn');
     // const searchResults = document.getElementById('searchResults');
@@ -148,10 +225,12 @@ function successAlert(){
 sideNav.addEventListener('mouseover', (e) => {
   Array.from(sideNav.children).forEach(element => {
     if (element.classList.contains('navborder')){
-    element.style.paddingRight = '24px'
+    element.style.paddingRight = '35px'
+  }else{
+    element.style.paddingRight = '30px'
   }
       element.firstElementChild.style.display = 'block';
-      sideNav.style.width = '8%'
+      sideNav.style.width = '100px'
   });
 });
 sideNav.addEventListener('mouseout', (e) => {
@@ -159,6 +238,7 @@ sideNav.addEventListener('mouseout', (e) => {
     if (element.classList.contains('navborder')){
     element.style.paddingRight = '17px'
   }
+  element.style.paddingRight = '20px'
       element.firstElementChild.style.display = 'none'; 
       sideNav.style.width = '55px'  
   });

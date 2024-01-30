@@ -3,7 +3,7 @@
 {% block content %}
 {% include 'main/navbar.html' %}
 
-<section id="member">
+<section id="memberi">
     <div id="memberInfo">
         <div id="profile">
             <img class="me-3" width="80px" height="80px" src="{{ member.profile_img.url}}" alt="">
@@ -15,7 +15,7 @@
         </div>
         <div id="info">
            <ul style="margin-right: 10px">
-            <li style="display: flex; font-size: 0.8em; justify-content: space-between">
+            <li style="display: flex; font-size: 0.8em; gap: 80px;">
                 <div>
                     <p><strong>MOBILE</strong></p>
                 <P class="sm">{{ member.mobile_no }}</P>
@@ -30,7 +30,7 @@
                 </div>
             </li>
             <hr>
-            <li style="display: flex; font-size: 0.8em; justify-content: space-between; width: 45%">
+            <li style="display: flex; font-size: 0.8em; gap: 66px;">
                <div>
                 {% with TransHistory=member.transaction_set.all %}
                 <p><strong>ISSUED BOOKS</strong></p>
@@ -40,7 +40,7 @@
                <div>
                 
                 <p><strong>DEBT</strong></p>
-                <P class="sm">{{ member.debt}}</P>
+                <P class="sm debt">{{ member.debt}}</P>
                 
                </div>
             </li>
@@ -72,16 +72,30 @@
               <p class="text-start d-flex"><span><img class="bookImg" height="30px" src="{{ trans.book.img_url}}" alt=""></span> <span class="ms-2" > {{ trans.book.title}} </span> </p>
               <p class="text-start hideSm">{{ trans.copyId|stringformat:"s" |slice:":5" }}</p>
               <p class="text-center period">{{ trans.issue_date| date:"d/m/Y"}} - {{ trans.return_date|date:"d/m/Y"}}</p>
-              <p class="text-start">{{trans.book.fee }}</p>
+              <p class="text-start ps-3">{{trans.book.fee }}</p>
               
-              <p class="text-start hideSm">{{trans.status }}</p>
+              <p class="text-start hideSm ps-3 status">{{trans.status }}</p>
              
-              <p style="width: 5px;">
-                <div class="dropdown">
-                <a href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#c"  style="position: absolute; left: 1vh;">
-                ...
-               </a>
-            </div></p>
+              <p></p>
+              <div class="dropdown" style="left: -12%;">
+              <a href="#" class="action" role="button" data-bs-toggle="dropdown" data-bs-target="#c" >
+              ...
+             </a>
+             <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li>
+                <a class="dropdown-item" href="#">
+                <p class="updateBookStatus" style="font-size:0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal5" id="{{trans.copyId}}" amount="{{ trans.book.fee|add:trans.fine }}">Update</p>
+              </a>
+              </li>
+              <li>
+                  <a class="dropdown-item" href="{% url 'bookinfo' trans.book.book_id %}">
+                  <p style="font-size: 0.8em;" type="button" id="{{trans.book.book_id }}">Book details</p>
+                </a>
+                </li>
+              </ul>
+              
+            
+          </div>
               
          
             </li>

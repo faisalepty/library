@@ -10,10 +10,14 @@ const resetInputs = () => {
   });
 };
 
+
+
 navAddBookBtn.addEventListener('click', () => {
   addBookFormBtn.classList.remove('d-none');
   const updateBtn = document.getElementById('updatebtn');
   updateBtn.style.display = 'none';
+  const title = bookModal.getElementsByClassName('modal-title')[0].firstChild
+    title.innerText = 'ADD BOOK'
   resetInputs();
 });
 
@@ -30,22 +34,28 @@ addBookFormBtn.addEventListener('click', (e) => {
     csrfmiddlewaretoken: csrfTokenInput.value
   });
 
-  console.log(datar);
-
   $.ajax({
     type: 'POST',
     url: '/newbook/',
     headers: { 'X-Requested-With': 'XMLHttpRequest' },
     data: datar,
     success: (res) => {
-      console.log(res);
+
       resetInputs();
       bookModal.classList.remove('show');
       bookModal.style.display = 'none';
-      successAlert();
+      if (res.success){
+        successAlert(res.success);
+      }else if(res.error){
+        bookModal.classList.remove('show');
+        bookModal.style.display = 'none';
+        errorAlert(res.error)
+      }
+      
     },
     error: (res) => {
-      console.log(res);
+      bookModal.classList.remove('show');
+        bookModal.style.display = 'none';
     }
   });
 });

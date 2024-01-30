@@ -6,6 +6,7 @@ let memberId1;
 Array.from(deleteMemberBtns).forEach(btn => {
     btn.addEventListener('click', (e) => {
         memberId1 = btn.id;
+        deleteMemberModal
         $.ajax({
             type: 'GET',
             url: `/deletemember/${memberId1}`,
@@ -27,7 +28,7 @@ delBtn1.addEventListener('click', (e) => {
             console.log(res);
             deleteMemberModal.classList.remove('show');
             deleteMemberModal.style.display = 'none';
-            successAlert();
+            successAlert(res.success);
         }
     });
 });

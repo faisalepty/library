@@ -19,45 +19,41 @@
             <h3>Borrow history</h3>
             <ul class="pe-3">
                 <li class="d-flex justify-content-between">
-                    <p>MEMBER</p>
-                    <p>COPY ID</p>
-                    <p>RETURN DATE</p>
-                    <p>STATUS</p>
-                    <p>ACTION</p>
+                    <p style="width: 20%;">MEMBER</p>
+                    <p style="width: 20%;">COPY ID</p>
+                    <p style="width: 20%;">RETURN DATE</p>
+                    <p style="width: 20%;">STATUS</p>
+                    <p style="width: 20%;">ACTION</p>
                     
                   <hr>  
                 </li>
                 <hr>
                 {% for transaction in transactions%}
-                <li class="d-flex justify-content-between">
-                    <p style="width: 25%;" class="text-start">{{ transaction.member.first_name }} {{ transaction.member.last_name }}</p>
-                    <p style="width: 25%;" class="text-start">{{ transaction.copyId|stringformat:"s"| slice:":5" }}</p>
-                    <p style="width: 25%;" class="text-start">{{ transaction.return_date| date }}</p>
-                    <p style="width: 25%;" class="text-start">{{ transaction.status}}</p>
-                    <p style="width: 25%;">
+                <li class="d-flex">
+                    <p style="width: 20%;" class="text-start">{{ transaction.member.first_name }} {{ transaction.member.last_name }}</p>
+                    <p style="width: 20%;" class="text-start">{{ transaction.copyId|stringformat:"s"| slice:":5" }}</p>
+                    <p style="width: 20%;" class="text-start">{{ transaction.return_date| date }}</p>
+                    <p style="width: 20%;" class="text-start status">{{ transaction.status}}</p>
+                    <p></p>
                         <div class="dropdown">
-                        <a href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#c"  style="position: absolute; right: 20vh;">
+                        <a href="#" role="button" data-bs-toggle="dropdown" class="action" data-bs-target="#c" >
                         ...
                        </a>
                        <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#"><button class="btn btn-primary issueBookBtn m" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" data-bs-toggle="modal" data-bs-target="#myModal3" id="{{ member.first_name }} {{ member.last_name }}">Issue book</button></a></li>
                         <li>
                           <a class="dropdown-item" href="#">
-                          <button class="btn btn-primary updateBookStatus" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" data-bs-toggle="modal" data-bs-target="#myModal5" id="{{transaction.copyId}}">Update</button>
+                          <p class="updateBookStatus" style="font-size:0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal5" id="{{transaction.copyId}}" amount="{{ transaction.book.fee }}">Update</p>
                         </a>
                         </li>
                         <li>
-                          <a class="dropdown-item" href=>
-                          <button class="btn btn-primary updatememberBtn" style="font-size: 1vh; width: 30px; padding: 0px; padding: 3px 2px;" type="button" id="{{ member.member_id }}">Member details</button>
-                        </a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="#">  <button id="{{member.member_id}}" class="btn btn-danger deleteMemberBtn" style="font-size: 1vh; width: 30px; padding: 3px 2px;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</button></a>
-                        </li>
+                            <a class="dropdown-item" href="{% url 'memberinfo' transaction.member.member_id%}">
+                            <p class="updatememberBtn" style="font-size: 0.8em;" type="button" id="{{transaction.member.member_id }}">Member details</p>
+                          </a>
+                          </li>
                         </ul>
                         
                       
-                    </div></p>
+                    </div>
                    
                 </li>
                 <hr>
@@ -78,7 +74,7 @@
         <h4 style="font-size: 0.8em; font-weight: bold ;">GENRE</h4>
         <p  style="font-size: 0.7em;">{{ book.category }}</p>
         <h4 style="font-size: 0.8em; font-weight: bold ;">NUMBER OF COPIES</h4>
-        <p  style="font-size: 0.7em;">{{ book.quantity }}</p>
+        <p  style="font-size: 0.7em;"><span class="copyQuantity">{{ book.quantity }}</span>/{{ copiesCount }} available</p>
         <h4 style="font-size: 0.8em; font-weight: bold ;">PAGES</h4>
         <p  style="font-size: 0.7em;">{{ book.pages }}</p>
     </div>

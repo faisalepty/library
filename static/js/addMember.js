@@ -17,6 +17,12 @@ const resetMemberInputs = () => {
     imgField.querySelector('input').classList.remove('d-none');
 };
 
+const updatememberbtn = document.getElementById('updateMember');
+const addmemberbtn = document.getElementById('addmember');
+updatememberbtn.classList.add('d-none');
+addmemberbtn.classList.remove('d-none');
+memberModal.getElementsByClassName('modal-title')[0].firstChild.innerText = 'ADD MEMBER'
+
 formInputs.forEach(inputName => {
     const inputs = document.getElementsByName(inputName);
     inputs.forEach(input => {
@@ -60,14 +66,21 @@ addMemberFormBtn.addEventListener('click', (e) => {
         enctype: 'multipart/form-data',
         data: formData,
         success: (res) => {
-            console.log(res);
+            if (res.success){
             resetMemberInputs();
             memberModal.classList.remove('show');
             memberModal.style.display = 'none';
-            successAlert();
-        },
+            successAlert(res.success);
+        }else if (res.error){
+            memberModal.classList.remove('show');
+            memberModal.style.display = 'none';
+            errorAlert(res.error)
+        }
+    },
         error: (res) => {
-            console.log(res);
+            memberModal.classList.remove('show');
+            memberModal.style.display = 'none';
+            errorAlert(res.error)
         }
     });
 });

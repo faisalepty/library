@@ -12,6 +12,7 @@ const issueBookBtnArr = [...issueBookBtn]
 const BooksPTags =bookDropDown.getElementsByTagName('p');
 const bookPtArr = [...BooksPTags]
 
+
 postIssueBookBtn.addEventListener('click', (e) => {
   const data = {'book_title': bookInput.value,
                 'first_name': memberInput.value.split(' ')[0],
@@ -19,17 +20,30 @@ postIssueBookBtn.addEventListener('click', (e) => {
                 'return_date': dateInput.value,
                 'csrfmiddlewaretoken': modal3csrf_token.innerText
                 }
-  console.log(data)
+
   $.ajax({
     type: 'POST',
     data: data,
     url:'/issuebook/',
     success: (res) => {
-      console.log(res)
+    
       issueBookModal.classList.remove('show')
       issueBookModal.style.display = 'none'
-      successAlert()
-    }
+      if (res.success){
+        successAlert(res.success)
+        const copyCount = document.getElementById(`${data.book_title}`);
+        copyCount.innerText = parseInt(copyCount.innerText) - 1
+      }else if(res.error){ 
+       errorAlert(res.error)
+      }
+     
+    },
+    error: (res) => {
+      issueBookModal.classList.remove('show')
+      issueBookModal.style.display = 'none'
+      console.log(res)
+      errorAlert(res.statusText)
+    } 
 
   })
 })

@@ -46,7 +46,7 @@ class Member(models.Model):
     age = models.IntegerField(null=True)
     debt = models.FloatField(default=0.0)
     member_since = models.DateTimeField(auto_now_add=True)
-    profile_img = models.ImageField(upload_to='image/profile_imgs', default='/home/fhadhul/Desktop/fhadhul/library/static/images/dummy1.png', null=True) 
+    profile_img = models.ImageField(upload_to='image/profile_imgs', default='static/image/dummy1.png', null=True) 
     address = models.CharField(max_length=200)
     mobile_no = models.CharField(max_length=10)
     national_id = models.CharField(max_length=8)
@@ -68,7 +68,7 @@ class Transaction(models.Model):
     copyId = models.CharField(max_length=50)
     fine = models.FloatField()
     issue_date = models.DateTimeField(auto_now_add=True)
-    return_date = models.DateTimeField(null=True, blank=True)
+    return_date = models.DateTimeField()
 
     def CheckReturnDate(self):
         currentDate = timezone.now()

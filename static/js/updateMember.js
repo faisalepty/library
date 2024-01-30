@@ -50,9 +50,10 @@ updateMemberBtnArr.forEach(btn => {
                 const addmemberbtn = document.getElementById('addmember');
                 updatememberbtn.classList.remove('d-none');
                 addmemberbtn.classList.add('d-none');
+                updateMemberModal.getElementsByClassName('modal-title')[0].firstChild.innerText = 'UPDATE MEMBER'
+
             },
             error: (res) => {
-                console.log(res);
             }
         });
     });
@@ -79,14 +80,16 @@ updateMemberBtn.addEventListener('click', (e) => {
         enctype: 'multipart/form-data',
         data: formData,
         success: (res) => {
-            console.log(res);
+            if(res.success){
             resetMemberInputs1();
             updateMemberModal.classList.remove('show');
             updateMemberModal.style.display = 'none';
             successAlert();
-        },
+        }else if(res.error){
+            errorAlert(res.error)
+        }
+    },
         error: (res) => {
-            console.log(res);
         }
     });
 });

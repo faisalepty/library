@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load custom_filters %}
 
 {% block content %}
 {% include 'main/navbar.html' %}
@@ -21,13 +21,13 @@
         <p class="mb-0">Book Titles</p>
        </span>
     <span >    
-      <h3 class="mb-0 pt-2"><strong>{{totalcopies}}</strong></h3>
+      <h3 class="mb-0 pt-2"><strong style="font-size: 0.7em;">{{totalcopies}}</strong></h3>
       <p class="mb-0">Book Copies</p>
       </span>
     </div>
     <div class="ps-3 mb-3">
      
-        <i class="bi bi-book-fill" style="color: #FFD700; margin-left: 2%;"></i>
+        <i class="bi bi-people-fill" style="color: #FFD700; margin-left: 2%;"></i>
         <i class="bi bi-chevron-down" style="margin-left: 72%;"></i>
         <h3 class="mb-0 pt-2"><strong>{{ members.count }}</strong></h3>
         <p class="mb-0">Members</p>
@@ -60,10 +60,10 @@
       <hr>
       <ul>
         <li id="sectionHeader" class="d-flex justify-content-between ps-4 pe-4">
-          <p class="text-secondary text-start" style="width: 20%">BOOK NAME</p>
-          <p class="text-secondary text-start" style="width: 20%">BOOK CODE</p>
-          <p class="text-secondary text-start" style="width: 20%">BOOK STATUS</p>
-          <p class="text-secondary text-start" style="width: 20%">ACTION</p>
+          <p class="text-secondary text-start">BOOK NAME</p>
+          <p class="text-secondary text-start">BOOK CODE</p>
+          <p class="text-secondary text-start">BOOK STATUS</p>
+          <p class="text-secondary text-start">ACTION</p>
         </li>
         <li>
        <ul class="ps-4 pe-4">
@@ -71,8 +71,31 @@
         <li class="listDIvider d-flex justify-content-between align-items-center text-dark">
           <p class="text-start">{{ book.title| slice:":15" }}</p>
           <p>{{ book.book_id|stringformat:"s" |slice:":8" }}</p>
-          <p class="text-start">{{ book.author| slice:":8"}}</p>
-          <p class="text-start">...</p>
+          <p class="text-start"><span id="{{ book.title }}">{{ book.quantity }}</span>/{{book.copy_ids| split_length}} available</p>
+
+          <div class="dropdown" style="left: -15px;">
+            <a href="#"class="action" role="button" data-bs-toggle="dropdown" data-bs-target="#c">
+            ...
+           </a>
+              <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#"><p class="issueBookBtn" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal3" id="{{book.title}}">Issue book</p></a></li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                  <p class="updateBookBtn" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal" id="{{book.book_id}}">Update</p>
+                </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'bookinfo' book.book_id %}">
+                  <p class="updateBookBtn" style="font-size: 0.8em;" type="button" id="{{book.book_id}}">Book details</p>
+                </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">  <p id="{{book.book_id}}" class="deleteBookBtn" style="font-size: 0.8em;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</p></a>
+                </li>
+                
+              
+              </ul>
+            </div>
         </li>
         <hr >
         {% endfor %}
@@ -88,10 +111,10 @@
       <hr>
       <ul>
         <li id="sectionHeader" class="d-flex justify-content-between ps-4 pe-4">
-          <p class="text-secondary text-start" style="width: 20%">NAME</p>
-          <p class="text-secondary text-start" style="width: 20%">MEMBER ID</p>
-          <p class="text-secondary text-start" style="width: 20%">DEBT</p>
-          <p class="text-secondary text-start" style="width: 20%">ACTION</p>
+          <p class="text-secondary text-start" style=>NAME</p>
+          <p class="text-secondary text-start" style=>MEMBER ID</p>
+          <p class="text-secondary text-start" style=>DEBT</p>
+          <p class="text-secondary text-start" style=>ACTION</p>
         </li>
         <li>
        <ul class="ps-4 pe-4">
@@ -100,7 +123,28 @@
           <p class="text-start">{{ member.first_name}} {{ member.last_name}}</p>
           <p>{{ member.member_id|stringformat:"s" |slice:":5" }}</p>
           <p class="text-start">{{ member.debt }}</p>
-          <p class="text-start"> ... </p>
+          <div class="dropdown" style="left: -15px;">
+            <a href="#" class="action" role="button" data-bs-toggle="dropdown" data-bs-target="#c">
+            ...
+           </a>
+           <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#"><p class="issueBookBtn m" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal3" id="{{ member.first_name }} {{ member.last_name }}">Issue book</p></a></li>
+            <li>
+              <a class="dropdown-item" href="#">
+              <p class="updateMemberBtn" style="font-size: 0.8em;" type="button" data-bs-toggle="modal" data-bs-target="#myModal1" id="{{member.member_id}}">Update</p>
+            </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'memberinfo' member.member_id%}">
+              <p class="updatememberBtn" style="font-size: 0.8em;" type="button" id="{{ member.member_id }}">Member details</p>
+            </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">  <p id="{{member.member_id}}" class="deleteMemberBtn" style="font-size: 0.8em;" data-bs-toggle="modal" data-bs-target="#myModal2">Delete</p></a>
+            </li>
+            
+          
+        </div>
         </li>
         <hr >
         {% endfor %}
