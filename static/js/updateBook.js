@@ -106,7 +106,7 @@ updateBtn.addEventListener('click', (e) => {
             feeInput.value = '';
             updateBookModal.classList.remove('show')
             updateBookModal.style.display = 'none'
-            successAlert()}else if(res.error){
+            successAlert(res.success)}else if(res.error){
               errorAlert(res.error)
             }
         },

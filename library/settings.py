@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d%!j3^34880e(h(f5229n!$iof2+)=(l3kpdu!7sosa(2y360y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['flibrary-e74d3c51c3c0.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -122,8 +122,22 @@ STATICFILES_DIRS =[
     os.path.join(BASE_DIR, 'static')
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# AWS_ACCESS_KEY_ID = 'AKIA4MTWNZ3DVN4TS573'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'flibrary1'
+# AWS_S3_SIGNATURE_NAME = 's3v4'
+# AWS_S3_REGION_NAME = 'us-east-1'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# AWS_S3_VERIFY = True
+
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+

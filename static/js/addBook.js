@@ -33,7 +33,7 @@ addBookFormBtn.addEventListener('click', (e) => {
     status: 'On shelf',
     csrfmiddlewaretoken: csrfTokenInput.value
   });
-
+console.log(datar)
   $.ajax({
     type: 'POST',
     url: '/newbook/',

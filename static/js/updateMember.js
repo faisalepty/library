@@ -84,7 +84,7 @@ updateMemberBtn.addEventListener('click', (e) => {
             resetMemberInputs1();
             updateMemberModal.classList.remove('show');
             updateMemberModal.style.display = 'none';
-            successAlert();
+            successAlert(res.success);
         }else if(res.error){
             errorAlert(res.error)
         }

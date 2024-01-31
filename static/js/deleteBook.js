@@ -27,7 +27,7 @@ delBtn.addEventListener('click', () => {
             console.log(res);
             deleteBookModal.classList.remove('show');
             deleteBookModal.style.display = 'none';
-            successAlert();
+            successAlert(res.success);
         }
     });
 });
