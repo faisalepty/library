@@ -35,9 +35,9 @@
                   <p class="updatelibrarian" style="font-size:0.8em;"  id="{{librarian.id}}">Update</p>
                 </a>
                 </li>
-                <li>
-                    <a class="dropdown-item" href="">
-                    <p class="updatememberBtn" style="font-size: 0.8em;" type="button" id="{{transaction.member.member_id }}">Member details</p>
+                <li data-bs-toggle="modal" data-bs-target="#myModal2">
+                    <a class="dropdown-item">
+                    <p class="deleteLibrarianBtn" style="font-size: 0.8em;" type="button" id="{{librarian.id }}">Member details</p>
                   </a>
                   </li>
                 </ul>
@@ -53,7 +53,12 @@
     </ul>
 
 </div>
-<aside style="width: 35%; background-color: white; height: 200px;">
+<aside style="padding: 10px; width: 35%; background-color: white; height: 200px; border-radius: 15px;">
+    <h4>Recent activities</h4>
+    <p>Todays Issued Books</p>
+    <p style="font-weight: bolder; color: rgb(65, 119, 226);">{{recentBookIssus.count}}</p>
+    <p>Todays returned books</p>
+    <p style="font-weight: bolder; color: rgb(65, 119, 226);">{{recentReturnedBooks.count}}</p>
 
 </aside>
 

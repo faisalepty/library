@@ -19,4 +19,5 @@ urlpatterns = [
     path('deletemember/<str:pk>', views.DeleteMember, name='deletemember'),
     path('librarians/', views.AddNewLibrarian, name='librarians'),
     path('editlibrarianinfo/<str:pk>', views.EditLibrarianInfo, name='editlibrarianinfo'),
+    path('deletelibrarian/<str:pk>', views.DeleteLibrarian, name='deletelibrarian'),
                ]

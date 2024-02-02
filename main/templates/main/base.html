@@ -62,6 +62,9 @@ Array.from(searchType1.childNodes).forEach(type => {
 
 
 const updateLibrarian = document.querySelectorAll('.updatelibrarian');
+const deleteLibrarianModal = document.getElementById('myModal2');
+const ldeleteBtn = document.querySelectorAll('.deleteLibrarianBtn')
+const ldelete = document.querySelector('.delBtn');
 const librarianModal = document.getElementById('myModal6');
 const ldata = document.getElementById('ldata');
 const lfirstName = librarianModal.querySelector('[name="first_name"]');
@@ -122,6 +125,25 @@ lupdateBtn.addEventListener('click', (e) => {
         librarianModal.classList.remove('show')
       librarianModal.style.display = 'none'
         errorAlert(res.error)
+      }
+    })
+})
+
+
+ldeleteBtn.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+  pk = e.target.id
+})})
+
+ldelete.addEventListener('click', (e) => {
+    $.ajax({
+      type: 'POST',
+      url: `/deletelibrarian/${pk}`,
+      data: {'csrfmiddlewaretoken': lcsrfMIddlewareToken.value},
+      success: (res) => {
+        deleteLIbrarianModal.classList.remove('show');
+            deleteLIbrarianModal.style.display = 'none';
+            successAlert(res.success);
       }
     })
 })

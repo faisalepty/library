@@ -11,7 +11,6 @@ Array.from(deleteMemberBtns).forEach(btn => {
             type: 'GET',
             url: `/deletemember/${memberId1}`,
             success: (res) => {
-                console.log(res);
                 deleteMemberCsrfToken = res.csrf_token;
             }
         });
@@ -25,7 +24,7 @@ delBtn1.addEventListener('click', (e) => {
         data: { 'csrfmiddlewaretoken': deleteMemberCsrfToken },
         url: `/deletemember/${memberId1}`,
         success: (res) => {
-            console.log(res);
+
             deleteMemberModal.classList.remove('show');
             deleteMemberModal.style.display = 'none';
             successAlert(res.success);

@@ -257,6 +257,9 @@ def DeleteMember(request, pk):
 # Add new librarian view
 def AddNewLibrarian(request):
     librarians = User.objects.all()
+    today = timezone.now().isoformat()
+    recentBookIssus = Transaction.objects.filter(issue_date=today)
+    recentReturnedBooks= Transaction.objects.filter(return_date=today)
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -273,7 +276,7 @@ def AddNewLibrarian(request):
         else:
             return JsonResponse({'error': 'Form validation error'})
 
-    context = {'librarians': librarians, 'l': 'l'}
+    context = {'librarians': librarians, 'recentReturnedBooks': recentReturnedBooks, 'recentBookIssus': recentBookIssus, 'l': 'l'}
     return render(request, 'main/librariansDetails.html', context)
 
 # Edit librarian information view
@@ -299,3 +302,9 @@ def EditLibrarianInfo(request, pk):
             return JsonResponse({'error': 'Form validation error', 'errors': form.errors})
 
     return JsonResponse({'librarian': librarianInfo})
+
+def DeleteLibrarian(request, pk):
+    if request.method == 'POST':
+        librarian = User.objects.get(id=pk)
+        librarian.delete()
+        return JsonResponse({'success': 'Librarian deleted successfuly'})
