@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 from django.utils import timezone
 from django.db.models import Q
 from .models import Book, Member, Transaction
-from .forms import Newbookform, Newmemberform, Transactionform
+from .forms import Newbookform, Newmemberform, Transactionform, NewLibrarianForm, LibrarianUpdateForm
 
 
 # Home view for displaying a list of books or members based on user's search query
@@ -253,3 +254,48 @@ def DeleteMember(request, pk):
         return JsonResponse({'success': 'Member deleted successfully'})
 
     return JsonResponse({'csrf_token': csrf_token})
+
+def AddNewLibrarian(request):
+    librarians = User.objects.all()
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        form = NewLibrarianForm(request.POST)
+        group = Group.objects.get(name='librarian')
+        if form.is_valid():
+            user = form.save()
+            user.groups.add(group)
+            id = user.id
+            return JsonResponse({'Success': 'Librarian successfully added', 'id': id})
+        else:
+            return JsonResponse({'error': 'Form validation error'})
+
+    
+    context = {'librarians': librarians, 'l': 'l'}
+    return render(request, 'main/librariansDetails.html', context)
+
+
+def EditLibrarianInfo(request, pk):
+    librarian = User.objects.get(id=pk)
+    librarianInfo = {'first_name': librarian.username, 'last_name': librarian.last_name, 'id': librarian.id, 'email': librarian.email}
+
+    if request.method == 'POST':
+        form = LibrarianUpdateForm(request.POST)
+        if form.is_valid():
+            librarian.first_name = form.cleaned_data['first_name']
+            librarian.last_name = form.cleaned_data['last_name']
+            librarian.email = form.cleaned_data['email']
+            password = request.POST['password1']
+            if password:
+                librarian.set_password(password)
+
+            librarian.save()
+
+            return JsonResponse({'success': 'Librarian successfully updated'})
+        else:
+            return JsonResponse({'error': 'Form validation error', 'errors': form.errors})
+
+    return JsonResponse({'librarian': librarianInfo})

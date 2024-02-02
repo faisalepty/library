@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% include 'main/navbar.html' %}
+<section class="d-flex me-2" >
+
+
+<div id="librarians" style="background-color: white;">
+    <h3>Borrow history</h3>
+    <ul class="pe-3">
+        <li class="d-flex justify-content-between">
+            <p style="width: 20%;">ID</p>
+            <p style="width: 20%;">NAME</p>
+            <p style="width: 20%;">EMAIL</p>
+            <p style="width: 20%;">ACTION</p>
+            
+          <hr>  
+        </li>
+        <hr>
+        <span id="ldata">
+        {% for librarian in librarians%}
+       
+        <li class="d-flex">
+            <p style="width: 20%;" class="text-start">{{ librarian.id }}</p>
+            <p style="width: 20%;" class="text-start"> {{ librarian.username}} {{ librarian.last_name }}</p>
+            <p style="width: 20%;" class="text-center">{{ librarian.email }}</p>
+            <p></p>
+                <div class="dropdown" style="left: 17%;">
+                <a href="#" role="button" data-bs-toggle="dropdown" class="action" data-bs-target="#c" >
+                ...
+               </a>
+               <ul  id="c" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li type="button" data-bs-toggle="modal" data-bs-target="#myModal6">
+                  <a class="dropdown-item">
+                  <p class="updatelibrarian" style="font-size:0.8em;"  id="{{librarian.id}}">Update</p>
+                </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="">
+                    <p class="updatememberBtn" style="font-size: 0.8em;" type="button" id="{{transaction.member.member_id }}">Member details</p>
+                  </a>
+                  </li>
+                </ul>
+                
+              
+            </div>
+           
+        </li>
+        <hr>
+  
+        {% endfor %}
+    </span>
+    </ul>
+
+</div>
+<aside style="width: 35%; background-color: white; height: 200px;">
+
+</aside>
+
+</section>
+
+
+
+
+{% endblock content %}

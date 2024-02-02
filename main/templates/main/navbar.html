@@ -7,7 +7,7 @@
 </a>
   <div class="{% if br or bi%} active navborder{% else %} unactive {% endif %}"><p style="font-size: 0.5em;  margin-right: 4px;"><a href="{% url 'bookdetails'%}">Books</a></p><i class="bi bi-book-half"></i></div>
   <div class="{% if mr or mi%} active {% else %} unactive {% endif %}"><p style="font-size: 0.5em;"><a href="{% url 'membersdetails' %}">Members</a></p><i class="bi bi-people-fill"></i></div>
-  <div class=""><p style="font-size: 0.5em;">Settings</p><i class="bi bi-gear-fill"></i></div>
+  <div class="{% if l%} active {% else %} unactive {% endif %}"><p style="font-size: 0.5em;"><a href="{% url 'librarians' %}">Librarians</a></p><i class="bi bi-gear-fill"></i></div>
 </div>
   <div id="activeLink" class="{% if bi or mi%} activeLinkxlg {% endif%}  d-flex justify-content-between align-items-baseline pe-3">
     <img id="logo" class="hideSm" src="{% static 'image/logo1.jpg' %}" alt="">
@@ -16,19 +16,22 @@
     {% elif br %}
     <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Books</strong></h5>
     {% elif bi %}
-    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Books</strong><small class="ms-3">&gt&gt {{ book.title }} </small> </h5>
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Books</strong><small class="ms-3 hideSm">&gt&gt {{ book.title }} </small> </h5>
     {% elif mr %}
     <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Members</strong></h5>
     {% elif mi %}
-    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Members</strong><small class="ms-3">&gt&gt {{ member.first_name }} {{ member.last_name }}</small> </h5>
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Members</strong><small class="ms-3 hideSm">&gt&gt {{ member.first_name }} {{ member.last_name }}</small> </h5>
+    {%elif l %}
+    <h5 class="ms-4 mb-0 pt-2 text-dark"><small>&gt&gt</small><strong>Librarians</strong></h5>
     {% endif %}
-    <div id="searchinput" class="d-flex " style="position: relative;">
+    <div id="searchinput" class="d-flex " style="position: relative; {% if l %} margin-left: auto; margin-top: 10px;{% endif %}">
+      <span class="{% if l %} hide {% endif%}">
       <form action="{% url 'home' %}" method="GET" id="searchInput" class="d-flex">
         <input class="me-2 hidelg {% if bi or mi%} hidexlg {% endif%}" id="searchform" type="search" placeholder="Search by Title, Author" name="q">
         
         <input class="d-none" name="searchType" type="text">
           
-        <div class="dropdown hidelg {% if bi or mi%} hidexlg {% endif%}" >
+        <div id="filterDropdown" class="dropdown hidelg {% if bi or mi%} hidexlg {% endif%}" >
           <a class="dropdown-toggle" href="#" role="button" id="searchFilter" data-bs-toggle="dropdown">
             All
           </a>
@@ -42,10 +45,17 @@
         </div>
        
 
-        <button id="searchBtn" type="submit"><i class="bi bi-search"></i></button>
+        <button id="searchBtn" type="submit" class="dropdown hidelg {% if bi or mi%} hidexlg {% endif%} "><i class="bi bi-search"></i></button>
+        <i id="closeicon" class="bi bi-x"></i>
+
+          <i class="bi bi-search me-2 {% if bi or mi%} .qtoggleicon {% endif%}" id="qtoggleicon"></i>
+
       </form>
-      <button class="addMemberBtn mb-2" type="button" data-bs-toggle="modal" data-bs-target="#myModal1">Add Member</button>
-      <button  class="addBookBtn mb-2" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Book</button>
+    </span>
+      
+      <button class="addMemberBtn mb-2 {% if l %} hide {% endif%}" type="button" data-bs-toggle="modal" data-bs-target="#myModal1">Add Member</button>
+      <button  class="addBookBtn mb-2 {% if l %} hide {% endif%}" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Book</button>
+      <button  class="addLibrarianBtn mb-2 {% if not l %} hide {% endif%}" type="button" data-bs-toggle="modal" data-bs-target="#myModal6">Add Librarian</button>
       <a href="{% url 'logout' %}"><div class="logout" style="display: flex; border-left: 1px solid rgb(209, 209, 209);margin-left: 6px; padding-left: 4px; padding-top: 6px;font-weight: bold;">
          
           <i class="bi bi-person"></i>
@@ -56,24 +66,6 @@
    
     </div> 
     <hr id="navdiv"> 
-
-     
-    <!-- {% if br %}
-    <div id="booksearchfilter">
-      <input type="search">
-      <div class="dropdown">
-        <a class="dropdown-toggle" href="#" role="button" id="searchFilter" data-bs-toggle="dropdown">
-          All
-        </a>
-      
-        <ul class="dropdown-menu" id="searchFilterDrpDown" >
-          <li class="ps-1" id="All">All</li>
-          <li class="ps-3"><small id="title">Title</small></li>
-          <li class="ps-3"><small id="author">Author</small></li>
-        </ul>
-      </div>
-  </div> 
-  {% endif %} -->
 
   <div class="modal" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
@@ -270,6 +262,44 @@
         </span>
         <input class="modalInput" max id="amntPaid" type="number">
         <button type="button" class="mt-3" id="updateStatusBtn">Mark as returned</button>        
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal" id="myModal6" tabindex="-1"  >
+    <div class="modal-dialog modal-dialog-centered animate__animated animate__flipInX animate__faster">
+      <div class="modal-content" style="width: 70%; margin: auto;">
+        <div class="modal-header">
+          <h5 class="modal-title"><strong>ADD LIBRARIAN</strong></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="myForm p-3" action="" class="" >
+          <span class="d-none" id="modal6csrf_token">{% csrf_token %}</span>         
+           <div> <p class="mb-1"><strong>FIRST NAME</strong></p>
+            <input class="modalInput" name="first_name" type="text">
+          </div>
+          <div>
+            <p class="mb-1"><strong>SECOND NAME</strong></p>
+          <input class="modalInput" name="last_name" type="text">
+          </div>
+          <div>
+            <p class="mb-1"><strong>EMAIL</strong></p>
+          <input name="email" type="email" class="modalInput">
+          </div>        
+           <div> <p class="mb-1"><strong>PASSWORD</strong></p>
+           <input name="password1" type="password" class="modalInput">
+            </div>
+            <div> <p class="mb-1"><strong>CONFIRM PASSWORD</strong></p>
+              <input name="password2" type="password" class="modalInput">
+               </div>
+        </form>
+        
+        <div class="modal-footer">
+          <button id="addLibrarian" type="button">Add</button>
+          <button id="updateLibrarian" type="button" class="d-none">Update</button>
+        </div>
       </div>
     </div>
   </div>

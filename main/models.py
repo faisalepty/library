@@ -1,6 +1,7 @@
 import uuid
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.models import AbstractUser, User
 
 from .utils import CalculateFine
 
@@ -76,3 +77,5 @@ class Transaction(models.Model):
             self.status = 'extended'
             self.fine = CalculateFine(currentDate, self.return_date)
             self.save()
+
+
