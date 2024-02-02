@@ -19,15 +19,25 @@ The Library Management System is designed to streamline library operations, incl
 ## Features
 
 - **Book Management:** Add, edit, and delete books from the library inventory
+
+🎥
   ![bookCRUD](https://github.com/faisalepty/library/assets/129375971/1319ed69-a328-4de0-b0d4-bec283317682)
 - **Member Management:** Add, edit, and delete member details.
+
+🎥
   ![memberCRUD1](https://github.com/faisalepty/library/assets/129375971/6374e36d-0733-417d-a089-78c214016d76)
 
 - **Book Issuance:** Issue books to members with return date tracking.
+
+🎥
 ![ISSUANCE](https://github.com/faisalepty/library/assets/129375971/a47f4765-1d46-4f82-9f09-bbc48c2da2d9)
  - **Search Functionality:** Search for books or members based on various criteria.
+
+ 🎥
    ![searchfuntionality1](https://github.com/faisalepty/library/assets/129375971/05e3f11d-3b3b-4dbb-a16d-ad1c1ac2f295)
 - **Transaction History:** View the history of book transactions.
+
+🎥
   ![transactionHIST](https://github.com/faisalepty/library/assets/129375971/71a71b4d-d13b-4d50-9503-358b43b327b5)
 - **Fine Calculation:** Automated fine calculation for late book returns.
 
