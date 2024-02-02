@@ -8,10 +8,9 @@ from django.db.models import Q
 from .models import Book, Member, Transaction
 from .forms import Newbookform, Newmemberform, Transactionform, NewLibrarianForm, LibrarianUpdateForm
 
-
-# Home view for displaying a list of books or members based on user's search query
+# User login view
 def Login(request):
-    if request.method ==  'POST':
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
@@ -20,12 +19,12 @@ def Login(request):
             return redirect('home')
     return render(request, 'main/login.html')
 
-
+# User logout view
 def Logout(request):
     logout(request)
     return redirect('login')
 
-
+# Home view for displaying a list of books or members based on user's search query
 def Home(request):
     # Fetch a limited number of books for the home page
     books = Book.objects.all()
@@ -34,15 +33,15 @@ def Home(request):
     showcasebooks = books[:12]
     showcasemembers = members[:12]
 
-
     issuedCopies = transactions.filter(Q(status='pending') | Q(status='extended')).count
     extendedCopies = transactions.filter(status='extended').count
     totalCopies = 0
     for book in books:
         copyIds = len(book.copy_ids.split(','))
         totalCopies += copyIds
-    context = {'showcasebooks': showcasebooks, 'showcasemembers': showcasemembers, 'h': 'h', 'books': books, 'members': members, 'totalcopies': totalCopies, 'issuedCopies': issuedCopies, 'extendedCopies': extendedCopies}
-
+    context = {'showcasebooks': showcasebooks, 'showcasemembers': showcasemembers, 'h': 'h', 'books': books,
+               'members': members, 'totalcopies': totalCopies, 'issuedCopies': issuedCopies,
+               'extendedCopies': extendedCopies}
 
     query = request.GET.get('q')
     qType = request.GET.get('searchType')
@@ -75,10 +74,7 @@ def BookInfo(request, pk):
     book = Book.objects.get(book_id=pk)
     transactions = book.transaction_set.all()
     copiesCount = len(book.copy_ids.split(','))
-    context = {'book': book,
-                'transactions': transactions,
-                'copiesCount': copiesCount, 
-                'bi': 'bi'}
+    context = {'book': book, 'transactions': transactions, 'copiesCount': copiesCount, 'bi': 'bi'}
     return render(request, 'main/bookInfo.html', context)
 
 # Handle book issuance process
@@ -122,9 +118,9 @@ def IssueBook(request):
                 break
 
         if book.quantity > 0:
-            if (member.debt + book.fee)  < 500:
-                    
-                form = Transactionform({'book': book, 'member': member, 'return_date': return_date, 'copyId': copyId, 'fine': 0, 'status': 'pending'})
+            if (member.debt + book.fee) < 500:
+                form = Transactionform({'book': book, 'member': member, 'return_date': return_date, 'copyId': copyId,
+                'fine': 0, 'status': 'pending'})
 
                 if form.is_valid():
                     book.quantity -= 1
@@ -142,7 +138,6 @@ def IssueBook(request):
             return JsonResponse({'error': 'all books issued'})
 
     return JsonResponse({'members': 'books'})
-
 
 # Handle book return process
 def bookReturn(request, pk):
@@ -165,7 +160,6 @@ def bookReturn(request, pk):
 
         return JsonResponse({'success': 'Return success'})
 
-
 # Handle the addition of a new book
 def AddNewBook(request):
     if request.method == 'POST':
@@ -182,7 +176,7 @@ def AddNewBook(request):
 # Handle the editing of book information
 def EditBookInfo(request, pk):
     book = Book.objects.get(book_id=pk)
-   
+
     if request.method == 'POST':
         form = Newbookform(request.POST, instance=book)
         if form.is_valid():
@@ -190,13 +184,16 @@ def EditBookInfo(request, pk):
             return JsonResponse({'success': 'Book successfully updated'})
         else:
             return JsonResponse({'error': 'form validation error. Please ensure you fill in the required fields'})
-    data = {'title': book.title, 'author': book.author, 'description': book.description, 'language': book.language, 'category': book.category, 'edition': book.edition, 'pages': book.pages, 'publisher': book.publisher, 'publish_date': book.publish_date, 'img_url': book.img_url, 'quantity': book.quantity, 'fee': book.fee, 'status': book.status}
+    data = {'title': book.title, 'author': book.author, 'description': book.description, 'language': book.language,
+            'category': book.category, 'edition': book.edition, 'pages': book.pages, 'publisher': book.publisher,
+            'publish_date': book.publish_date, 'img_url': book.img_url, 'quantity': book.quantity, 'fee': book.fee,
+            'status': book.status}
     return JsonResponse({'data': data})
 
 # Handle the deletion of a book
 def DeleteBook(request, pk):
     csrf_token = get_token(request)
-    
+
     if request.method == 'POST':
         book = Book.objects.get(book_id=pk)
         book.delete()
@@ -241,13 +238,15 @@ def EditMemberInfo(request, pk):
             return JsonResponse({'success': 'Member successfully updated'})
         else:
             return JsonResponse({'error': 'form validation error. Please ensure you fill in the required fields'})
-    data = {'first_name': member.first_name, 'last_name': member.last_name, 'gender': member.gender, 'age': member.age, 'debt': member.debt, 'profile_img': member.profile_img.url, 'address': member.address, 'mobile_no': member.mobile_no, 'national_id': member.national_id, 'email': member.email}
+    data = {'first_name': member.first_name, 'last_name': member.last_name, 'gender': member.gender, 'age': member.age,
+            'debt': member.debt, 'profile_img': member.profile_img.url, 'address': member.address,
+            'mobile_no': member.mobile_no, 'national_id': member.national_id, 'email': member.email}
     return JsonResponse({'data': data})
 
 # Handle the deletion of a member
 def DeleteMember(request, pk):
     csrf_token = get_token(request)
-    
+
     if request.method == 'POST':
         member = Member.objects.get(member_id=pk)
         member.delete()
@@ -255,6 +254,7 @@ def DeleteMember(request, pk):
 
     return JsonResponse({'csrf_token': csrf_token})
 
+# Add new librarian view
 def AddNewLibrarian(request):
     librarians = User.objects.all()
     if request.method == 'POST':
@@ -273,14 +273,14 @@ def AddNewLibrarian(request):
         else:
             return JsonResponse({'error': 'Form validation error'})
 
-    
     context = {'librarians': librarians, 'l': 'l'}
     return render(request, 'main/librariansDetails.html', context)
 
-
+# Edit librarian information view
 def EditLibrarianInfo(request, pk):
     librarian = User.objects.get(id=pk)
-    librarianInfo = {'first_name': librarian.username, 'last_name': librarian.last_name, 'id': librarian.id, 'email': librarian.email}
+    librarianInfo = {'first_name': librarian.username, 'last_name': librarian.last_name, 'id': librarian.id,
+                     'email': librarian.email}
 
     if request.method == 'POST':
         form = LibrarianUpdateForm(request.POST)
