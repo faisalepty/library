@@ -147,7 +147,7 @@ def bookReturn(request, pk):
 
         # Update bookCopy fields
         bookCopy.status = 'returned'
-        bookCopy.return_date = timezone.now()
+        bookCopy.return_date = str(timezone.now().isoformat())[0:10]
         bookCopy.save()
 
         # Update related book fields
@@ -257,7 +257,7 @@ def DeleteMember(request, pk):
 # Add new librarian view
 def AddNewLibrarian(request):
     librarians = User.objects.all()
-    today = timezone.now().isoformat()
+    today = str(timezone.now().isoformat())[0:10]
     recentBookIssus = Transaction.objects.filter(issue_date=today)
     recentReturnedBooks= Transaction.objects.filter(return_date=today)
     if request.method == 'POST':

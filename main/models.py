@@ -68,11 +68,11 @@ class Transaction(models.Model):
     status = models.CharField(max_length=50, choices=STATUS)
     copyId = models.CharField(max_length=50)
     fine = models.FloatField()
-    issue_date = models.DateTimeField(auto_now_add=True)
-    return_date = models.DateTimeField()
+    issue_date = models.DateField(auto_now_add=True)
+    return_date = models.DateField()
 
     def CheckReturnDate(self):
-        currentDate = timezone.now()
+        currentDate = str(timezone.now().isoformat())[0:10]
         if currentDate > self.return_date:
             self.status = 'extended'
             self.fine = CalculateFine(currentDate, self.return_date)
