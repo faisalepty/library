@@ -2,6 +2,8 @@
 
 A web-based Library Management System for managing book transactions, member details, and book inventory.
 
+visit live site [flibrary](https://flibrary-e74d3c51c3c0.herokuapp.com/)
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -15,8 +17,6 @@ A web-based Library Management System for managing book transactions, member det
 ## Overview
 
 The Library Management System is designed to streamline library operations, including book issuance, member management, and book inventory tracking. It provides a user-friendly interface for librarians to manage the library efficiently.
-
-visit live site [flibrary](https://flibrary-e74d3c51c3c0.herokuapp.com/)
 
 ## Features
 
