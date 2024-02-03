@@ -3,34 +3,25 @@
 
 {% block content %}
 
-<section style="height: 100vh;background-image: linear-gradient(#f3f4f5 45% ,rgb(65, 119, 226) 45%);/* position: absolute; *//* top: 20vh; */">
-    <img id="logo1" src="/static/image/logo1.jpg" alt="" style="margin: auto;position: absolute;width: 201px;left: 45%;height: 170px;top: 50px;">
-    <div id="login" style="width: 343px;height: 315px;background-color: white;margin: auto;margin-top: 20vh;border-radius: 20px;position: absolute;padding-top: 20px;left: 40%;top: 14vh;">
-    <p style="
-    padding-left: 12px;
-    color: #4e9ee7;
-    font-weight: bold;
-    border-left: 3px solid #4e9ee7;
-">LOGIN</p>
-        <form method="POST" action="/login/" style="position: relative;left: 7%;">
-            {% csrf_token %}
-            <p style="font-size: 0.8em;
-            font-weight: bold;">USER NAME</p>
-            <input id="text" name="username" type="text" style="border: 1px solid rgb(65, 119, 226);border-radius: 19px;width: 90%; ">
-            <p style="font-size: 0.8em;
-            font-weight: bold;">PASSWORD</p>
-            <input id="password" name="password" type="password" style="border: 1px solid rgb(65, 119, 226);border-radius: 20px;width: 90%;"><input type="submit" style="
-                background-color: rgb(65, 119, 226);
-                border: none;
-                width: 90%;
-                margin-top: 23px;
-                border-radius: 20px;
-                color: white;
-                height: 33px;
-            ">
-            </form>
+    <section id="login">
+        <p id="logoc"><img id="logo1" src="{% static 'image/logo1.jpg'%}" style="width: 201px;height: 170px;"></p>
+        <div id="login-container">
+            <h6>LOGIN</h6>
+            {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
     </div>
-    
-</section>
-
+{% endif %}
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <p style="font-size: 0.8em; font-weight: bold;">USER NAME</p>
+                <input id="text" name="username" type="text" autocomplete="off">
+                <p style="font-size: 0.8em; font-weight: bold;">PASSWORD</p>
+                <input id="password" name="password" type="password" autocomplete="off">
+                <button>Login</button>
+            </form>
+        </div>
+    </section>
 {% endblock content %}

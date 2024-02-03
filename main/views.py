@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
+from django.contrib import messages
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models import Q
 from .models import Book, Member, Transaction
 from .forms import Newbookform, Newmemberform, Transactionform, NewLibrarianForm, LibrarianUpdateForm
+from .decorators import *
 
 # User login view
+@unAuthenticated
 def Login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -17,6 +21,9 @@ def Login(request):
         if user is not None:
             login(request, user)
             return redirect('home')
+        else:
+            messages.info(request, 'Password or Username is incorrect')
+            return redirect('login')
     return render(request, 'main/login.html')
 
 # User logout view
@@ -25,6 +32,7 @@ def Logout(request):
     return redirect('login')
 
 # Home view for displaying a list of books or members based on user's search query
+@login_required(login_url='login')
 def Home(request):
     # Fetch a limited number of books for the home page
     books = Book.objects.all()
@@ -64,12 +72,14 @@ def Home(request):
     return render(request, 'main/home.html', context)
 
 # Display details of all books
+@login_required(login_url='login')
 def BooksDetails(request):
     books = Book.objects.all()
     context = {'books': books, 'br': 'br'}
     return render(request, 'main/bookDetails.html', context)
 
 # Display details of a specific book and its transactions
+@login_required(login_url='login')
 def BookInfo(request, pk):
     book = Book.objects.get(book_id=pk)
     transactions = book.transaction_set.all()
@@ -78,8 +88,7 @@ def BookInfo(request, pk):
     return render(request, 'main/bookInfo.html', context)
 
 # Handle book issuance process
-from django.forms.models import model_to_dict
-
+@login_required(login_url='login')
 def IssueBook(request):
     q = request.GET.get('q')
     r = request.GET.get('r')
@@ -140,6 +149,7 @@ def IssueBook(request):
     return JsonResponse({'members': 'books'})
 
 # Handle book return process
+@login_required(login_url='login')
 def bookReturn(request, pk):
     if request.method == 'POST':
         bookCopy = Transaction.objects.get(Q(copyId=pk) & (Q(status='pending') | Q(status='extended')))
@@ -161,6 +171,7 @@ def bookReturn(request, pk):
         return JsonResponse({'success': 'Return success'})
 
 # Handle the addition of a new book
+@login_required(login_url='login')
 def AddNewBook(request):
     if request.method == 'POST':
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -174,6 +185,7 @@ def AddNewBook(request):
             return JsonResponse({'error': 'Bad Request'})
 
 # Handle the editing of book information
+@login_required(login_url='login')
 def EditBookInfo(request, pk):
     book = Book.objects.get(book_id=pk)
 
@@ -191,6 +203,7 @@ def EditBookInfo(request, pk):
     return JsonResponse({'data': data})
 
 # Handle the deletion of a book
+@login_required(login_url='login')
 def DeleteBook(request, pk):
     csrf_token = get_token(request)
 
@@ -202,18 +215,21 @@ def DeleteBook(request, pk):
     return JsonResponse({'csrf_token': csrf_token})
 
 # Display details of all members
+@login_required(login_url='login')
 def MembersDetails(request):
     members = Member.objects.all()
     context = {'members': members, 'mr': 'mr'}
     return render(request, 'main/members.html', context)
 
 # Display details of a specific member
+@login_required(login_url='login')
 def MemberInfo(request, pk):
     member = Member.objects.get(member_id=pk)
     context = {'member': member, 'mi': 'mi'}
     return render(request, 'main/memberInfo.html', context)
 
 # Handle the addition of a new member
+@login_required(login_url='login')
 def AddNewMember(request):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == 'POST':
         file = request.FILES.get("image")
@@ -229,6 +245,7 @@ def AddNewMember(request):
         return JsonResponse({'error': 'bad request'})
 
 # Handle the editing of member information
+@login_required(login_url='login')
 def EditMemberInfo(request, pk):
     member = Member.objects.get(member_id=pk)
     if request.method == 'POST':
@@ -244,6 +261,7 @@ def EditMemberInfo(request, pk):
     return JsonResponse({'data': data})
 
 # Handle the deletion of a member
+@login_required(login_url='login')
 def DeleteMember(request, pk):
     csrf_token = get_token(request)
 
@@ -255,6 +273,8 @@ def DeleteMember(request, pk):
     return JsonResponse({'csrf_token': csrf_token})
 
 # Add new librarian view
+@login_required(login_url='login')
+@allowedUsers(allowedRoles=['admin'])
 def AddNewLibrarian(request):
     librarians = User.objects.all()
     today = str(timezone.now().isoformat())[0:10]
@@ -280,6 +300,8 @@ def AddNewLibrarian(request):
     return render(request, 'main/librariansDetails.html', context)
 
 # Edit librarian information view
+@login_required(login_url='login')
+@allowedUsers(allowedRoles=['admin'])
 def EditLibrarianInfo(request, pk):
     librarian = User.objects.get(id=pk)
     librarianInfo = {'first_name': librarian.username, 'last_name': librarian.last_name, 'id': librarian.id,
@@ -302,7 +324,8 @@ def EditLibrarianInfo(request, pk):
             return JsonResponse({'error': 'Form validation error', 'errors': form.errors})
 
     return JsonResponse({'librarian': librarianInfo})
-
+@login_required(login_url='login')
+@allowedUsers(allowedRoles=['admin'])
 def DeleteLibrarian(request, pk):
     if request.method == 'POST':
         librarian = User.objects.get(id=pk)
