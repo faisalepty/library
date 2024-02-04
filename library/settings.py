@@ -26,6 +26,9 @@ SECRET_KEY = 'django-insecure-d%!j3^34880e(h(f5229n!$iof2+)=(l3kpdu!7sosa(2y360y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+
+SECURE_REFERRER_POLICY = 'same-origin'
+
 ALLOWED_HOSTS = ['flibrary-e74d3c51c3c0.herokuapp.com', '127.0.0.1']
 PORT = int(os.environ.get('PORT', 8000))
 
