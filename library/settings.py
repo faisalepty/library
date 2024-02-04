@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-d%!j3^34880e(h(f5229n!$iof2+)=(l3kpdu!7sosa(2y360y
 DEBUG = False
 
 ALLOWED_HOSTS = ['flibrary-e74d3c51c3c0.herokuapp.com', '127.0.0.1']
-
+PORT = int(os.environ.get('PORT', 8000))
 
 # Application definition
 
@@ -122,8 +122,15 @@ STATICFILES_DIRS =[
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
+
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
