@@ -24,10 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d%!j3^34880e(h(f5229n!$iof2+)=(l3kpdu!7sosa(2y360y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-
-SECURE_REFERRER_POLICY = 'same-origin'
+DEBUG = False
 
 ALLOWED_HOSTS = ['flibrary-e74d3c51c3c0.herokuapp.com', '127.0.0.1']
 PORT = int(os.environ.get('PORT', 8000))
@@ -35,9 +32,7 @@ PORT = int(os.environ.get('PORT', 8000))
 
 CSRF_TRUSTED_ORIGINS = ['https://flibrary-e74d3c51c3c0.herokuapp.com']
 
-CSRF_USE_SESSIONS = True
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
+
 
 
 # Application definition
