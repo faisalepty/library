@@ -10,7 +10,7 @@ Array.from(deleteBookBtns).forEach(btn => {
             type: 'GET',
             url: `/deletebook/${id}`,
             success: (res) => {
-                console.log(res);
+            
                 deleteCsrfToken = res.csrf_token;
             }
         });
@@ -24,7 +24,7 @@ delBtn.addEventListener('click', () => {
         data: { 'csrfmiddlewaretoken': deleteCsrfToken },
         url: `/deletebook/${id}`,
         success: (res) => {
-            console.log(res);
+     
             deleteBookModal.classList.remove('show');
             deleteBookModal.style.display = 'none';
             successAlert();

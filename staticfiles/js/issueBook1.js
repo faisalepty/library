@@ -41,7 +41,7 @@ postIssueBookBtn.addEventListener('click', (e) => {
     error: (res) => {
       issueBookModal.classList.remove('show')
       issueBookModal.style.display = 'none'
-      console.log(res)
+   
       errorAlert(res.statusText)
     } 
 
@@ -86,7 +86,7 @@ const setDropdownValues = (dropdown, input, queryKey) => {
     
               dropdown.innerHTML = dropdownHtml;
               if(!res.members || res.members.length === 0){
-                console.log('we top')
+             
                 dropdown.innerHTML = "<p class='mb-0 ps-2' style='font-size: 0.5em; height: 14px; overflow: hidden;'>No matching value found</p>"
               }
         }else if(res.books){

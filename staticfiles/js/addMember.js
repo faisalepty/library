@@ -27,7 +27,6 @@ formInputs.forEach(inputName => {
     const inputs = document.getElementsByName(inputName);
     inputs.forEach(input => {
         input.addEventListener('change', (e) => {
-            console.log(input, input.value);
             formData.append(inputName, input.value);
         });
     });
@@ -53,7 +52,6 @@ photoInput.addEventListener('change', () => {
 
 addMemberFormBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log(formData);
 
     $.ajax({
         type: 'POST',

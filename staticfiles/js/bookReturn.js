@@ -13,7 +13,6 @@ let paid
 let currentStatus
 updateStatus.forEach(btn => {
   btn.addEventListener('click', (e) => {
-    console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('status')[0])
     currentStatus = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('status')[0];
     copyId = e.target.id
     paid = e.target.getAttribute('amount')
@@ -32,7 +31,7 @@ updateStatusBtn.addEventListener('click', (e) => {
       updateStatusModal.style.display = 'none'
       
       if(copyQuantity){
-        console.log(copyQuantity.innerText, parseInt(copyQuantity.innerText))
+        (copyQuantity.innerText, parseInt(copyQuantity.innerText))
       copyQuantity.innerText = parseInt(copyQuantity.innerText) + 1
      
       }
@@ -44,7 +43,6 @@ updateStatusBtn.addEventListener('click', (e) => {
       }
       
       successAlert(res.success)
-      console.log(res)
     }
   })
 })

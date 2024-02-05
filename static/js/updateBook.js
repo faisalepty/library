@@ -9,7 +9,6 @@ buttonsArr.forEach(btn => {
     type:'GET',
     url: `/editbookinfo/${id}`,
     success: (res) => {
-      console.log(res)
       const titleInput = document.getElementsByName('title')[0];
     const authorInput = document.getElementsByName('author')[0];
     const descriptionInput = document.getElementsByName('description')[0];
@@ -82,7 +81,6 @@ updateBtn.addEventListener('click', (e) => {
         'status': status,
         'csrfmiddlewaretoken': csrfTokenInput.value
     };
-        console.log(datar)
       $.ajax({
         type: 'POST',
         url: `/editbookinfo/${id}`,
@@ -111,7 +109,7 @@ updateBtn.addEventListener('click', (e) => {
             }
         },
         error: (res) => {
-          console.log(res)
+          errorAlert(res.error)
         }
 
       })

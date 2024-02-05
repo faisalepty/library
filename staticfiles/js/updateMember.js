@@ -23,7 +23,7 @@ updateMemberBtnArr.forEach(btn => {
             type: 'GET',
             url: `/editmemberinfo/${memberId}`,
             success: (res) => {
-                console.log(res);
+           
 
                 const first_nameInput = document.getElementsByName('first_name')[0];
                 const last_nameInput = document.getElementsByName('last_name')[0];
