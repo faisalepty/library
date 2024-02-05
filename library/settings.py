@@ -32,6 +32,11 @@ SECURE_REFERRER_POLICY = 'same-origin'
 ALLOWED_HOSTS = ['flibrary-e74d3c51c3c0.herokuapp.com', '127.0.0.1']
 PORT = int(os.environ.get('PORT', 8000))
 
+CSRF_USE_SESSIONS = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+
+
 # Application definition
 
 INSTALLED_APPS = [
