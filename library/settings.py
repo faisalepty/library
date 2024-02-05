@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
+
     'main',
 ]
 
@@ -130,8 +133,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
 
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+
 
 
 # Default primary key field type
@@ -139,9 +141,15 @@ application = get_wsgi_application()
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'hnfl87ifa',
+    'API_KEY': '921435971192273',
+    'API_SECRET': '7QfUlPY8AGDNM0DhwNQYZnzMA14',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudStorage'
 
 
 # AWS_ACCESS_KEY_ID = 'AKIATCKANQTMF2FJ3DHG'
