@@ -79,35 +79,35 @@
           <div>
            <span class="d-none" id="csrf_token">{% csrf_token %}</span>
               <p class="mb-1"><strong>TITLE</strong></p>
-            <input class="modalInput" type="text" name="title">
+            <input class="modalInput" type="text" name="title" placeholder="Title">
             <p class="mb-1"><strong>AUTHOR</strong></p>
-            <input type="text" class="modalInput" name="author">
+            <input type="text" class="modalInput" name="author" placeholder="Author">
             <p class="mb-1"><strong>LANGUAGE</strong></p>
-            <input type="text" class="modalInput" name="language">
+            <input type="text" class="modalInput" name="language" placeholder="Language">
           <p class="mb-1"><strong>GENRES</strong></p>
-          <input type="text" class="modalInput" name="category">
+          <input type="text" class="modalInput" name="category" placeholder="Category">
           <p class="mb-1"><strong>EDITION</strong></p>
-          <input type="text" class="modalInput" name="edition">
+          <input type="text" class="modalInput" name="edition" placeholder="Edition">
           <p class="mb-1"><strong>PAGES</strong></p>
-          <input type="number" class="modalInput" name="pages">
+          <input type="number" class="modalInput" name="pages" placeholder="100">
             </div>
           <div>
             <p class="mb-1"><strong>DESCRIPTION</strong></p>
-            <textarea name="description" class="modalInput"></textarea>
+            <textarea name="description" class="modalInput" placeholder="Description"></textarea>
           <p class="mb-1"><strong>PUBLISHER</strong></p>
-          <input type="text" class="modalInput" name="publisher">
+          <input type="text" class="modalInput" name="publisher" placeholder="Publisher">
           <p class="mb-1"><strong>PUBLISH DATE</strong></p>
-          <input type="text" class="modalInput" name="publish_date">
+          <input type="text" class="modalInput" name="publish_date" placeholder="Publish Date">
           <p class="mb-1"><strong>IMAGE(url)</strong></p>
-          <input type="text" class="modalInput" name="img_url">
+          <input type="text" class="modalInput" name="img_url" placeholder="Image Url">
           <div  class="numericInputs">
             <span>
             <p class="mb-1"><strong>QUANTITY</strong></p>
-          <input style="width: 60px;" type="text" class="modalInput" name="quantity">
+          <input style="width: 60px;" type="text" class="modalInput" name="quantity" placeholder="0">
         </span>
         <span>
           <p class="mb-1"><strong>FEE</strong></p>
-          <input style="width: 60px;"  type="text" class="modalInput" name="fee">
+          <input style="width: 60px;"  type="text" class="modalInput" name="fee" placeholder="0">
         </span>
           </div>
           </div>
@@ -138,35 +138,35 @@
           
           <div id="x">
            <div> <p class="mb-1"><strong>FIRST NAME</strong></p>
-            <input class="modalInput" name="first_name" type="text"></div>
+            <input class="modalInput" name="first_name" type="text" placeholder="First Name"></div>
           <div>
             <p class="mb-1"><strong>SECOND NAME</strong></p>
-          <input class="modalInput" name="last_name" type="text">
+          <input class="modalInput" name="last_name" type="text" placeholder="Last Name">
           </div>
           <div>
             <p class="mb-1"><strong>GENDER</strong></p>
-          <input name="gender" type="text" class="modalInput">
+          <input name="gender" type="text" class="modalInput" placeholder="Gender">
           </div>
           <div>
             <p class="mb-1"><strong>AGE</strong></p>
-          <input name="age" type="text" class="modalInput">
+          <input name="age" type="text" class="modalInput" placeholder="Age">
           </div>
          <div>
           <p class="mb-1"><strong>ID No</strong></p>
-          <input name="national_id" type="text" class="modalInput">
+          <input name="national_id" type="text" class="modalInput" placeholder="xxxxxxxx">
          </div>
           </div>
           <div id="y">
            <div> <p class="mb-1"><strong>ADDRESS</strong></p>
-            <textarea name="address"></textarea>
+            <textarea name="address" placeholder="Address"></textarea>
             </div>
           <div>
             <p class="mb-1"><strong>MOBILE NO</strong></p>
-          <input name="mobile_no" type="text" class="modalInput">
+          <input name="mobile_no" type="text" class="modalInput" placeholder="07XXXXXXXX">
           </div>
           <div>
             <p class="mb-1"><strong>EMAIL</strong></p>
-          <input name="email" type="email" class="modalInput">
+          <input name="email" type="email" class="modalInput" placeholder="example@gmail.com">
           </div>
           </div>
         </form>
@@ -211,7 +211,7 @@
           <span class="d-none" id="modal3csrf_token">{{csrf_token}}</span>
          <div>
           <p>Select member</p>
-          <input id="memberInput" type="text">
+          <input id="memberInput" type="text" placeholder="search name">
           <div id="memberDropDown">
 
           </div>
@@ -220,14 +220,14 @@
           
         <div>
           <p>Select book</p>
-          <input id="bookInput" type="text">
+          <input id="bookInput" type="text" placeholder="Search Book">
           <div id="bookDropDown">
            
           </div>
         </div>
         <div>
           <p>Return Date</p>
-          <input id="dateInput" type="text">
+          <input id="dateInput" type="text" placeholder="YYYY-MM-DD">
         </div>
         <button id="postIssueBookBtn" type="button" class="mt-3">Issue Book</button>
         </form>
@@ -260,7 +260,7 @@
         <span class="d-none" id="updateStatusCsrfToken">
           {% csrf_token%}
         </span>
-        <input class="modalInput" max id="amntPaid" type="number">
+        <input class="modalInput" max id="amntPaid" type="number" placeholder="0">
         <button type="button" class="mt-3" id="updateStatusBtn">Mark as returned</button>        
       </div>
     </div>
@@ -278,21 +278,21 @@
         <form class="myForm p-3" action="" class="" >
           <span class="d-none" id="modal6csrf_token">{% csrf_token %}</span>         
            <div> <p class="mb-1"><strong>FIRST NAME</strong></p>
-            <input class="modalInput" name="first_name" type="text">
+            <input class="modalInput" name="first_name" type="text" placeholder="First Name">
           </div>
           <div>
             <p class="mb-1"><strong>SECOND NAME</strong></p>
-          <input class="modalInput" name="last_name" type="text">
+          <input class="modalInput" name="last_name" type="text" placeholder="Second Name">
           </div>
           <div>
             <p class="mb-1"><strong>EMAIL</strong></p>
-          <input name="email" type="email" class="modalInput">
+          <input name="email" type="email" class="modalInput" placeholder="examle@gmail.com">
           </div>        
            <div> <p class="mb-1"><strong>PASSWORD</strong></p>
-           <input name="password1" type="password" class="modalInput">
+           <input name="password1" type="password" class="modalInput" placeholder="Password">
             </div>
             <div> <p class="mb-1"><strong>CONFIRM PASSWORD</strong></p>
-              <input name="password2" type="password" class="modalInput">
+              <input name="password2" type="password" class="modalInput" placeholder="Comfirm your password">
                </div>
         </form>
         

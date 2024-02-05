@@ -40,6 +40,7 @@ def Home(request):
     transactions = Transaction.objects.all()
     showcasebooks = books[:12]
     showcasemembers = members[:12]
+    recentlyAddedB = books.order_by('-id')[:12]
 
     issuedCopies = transactions.filter(Q(status='pending') | Q(status='extended')).count
     extendedCopies = transactions.filter(status='extended').count
@@ -47,9 +48,7 @@ def Home(request):
     for book in books:
         copyIds = len(book.copy_ids.split(','))
         totalCopies += copyIds
-    context = {'showcasebooks': showcasebooks, 'showcasemembers': showcasemembers, 'h': 'h', 'books': books,
-               'members': members, 'totalcopies': totalCopies, 'issuedCopies': issuedCopies,
-               'extendedCopies': extendedCopies}
+    context = {'showcasebooks': showcasebooks, 'showcasemembers': showcasemembers, 'h': 'h', 'books': books, 'members': members, 'totalcopies': totalCopies, 'issuedCopies': issuedCopies,   'extendedCopies': extendedCopies, 'recentlyAddedB': recentlyAddedB}
 
     query = request.GET.get('q')
     qType = request.GET.get('searchType')
@@ -58,8 +57,8 @@ def Home(request):
     if query:
         # Handle different search types (member, title, author)
         if qType == 'member':
-            userSearch = members.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query))
-            context = {'members': userSearch, 'mr': 'mr'}
+            memberSearch = members.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query))
+            context = {'members': memberSearch, 'mr': 'mr'}
             return render(request, 'main/members.html', context)
         elif qType in ['title', 'author']:
             bookSearch = bookSearch.filter(Q(title__icontains=query) | Q(author__icontains=query))

@@ -35,7 +35,7 @@ input:focus {
 
 #login-container {
     width: 343px;
-    height: 315px;
+    height: 345px;
     background-color: white;
     border-radius: 20px;
     position: relative;
@@ -76,6 +76,15 @@ input:focus {
     border-radius: 20px;
     color: white;
     height: 33px;
+}
+#login button:hover{
+    color:rgb(65, 119, 226);
+    background-color: white;
+    border: 1px solid rgb(65, 119, 226);
+}
+.authDetails{
+    background-color: #88a5d3;
+    color: white;
 }
 .messages p{
     background-color: rgb(65, 119, 226);
@@ -256,6 +265,9 @@ input:focus {
     border-radius: 5px;
     border: none;
     color: white;
+}
+::placeholder {
+    font-size: 0.8em;
 }
 #searchFilter{
     border: 1px solid rgb(65, 119, 226);
@@ -479,13 +491,14 @@ textarea[name="address"]{
 .action{
     text-decoration: none;
     font-size: 1.5em;
-    width: 40px;
+    padding: 0px 8px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 30px;
 }
 .action:hover{
     background-color: rgb(65, 119, 226);
-    opacity: 0.6;
+    color: white;
+    
 }
 #bookfilterbtn{
     padding-left: 8%;
@@ -578,6 +591,9 @@ hr{
     font-family: 'Signika', sans-serif;
 
 }
+#readMoreBtn:hover{
+        cursor: pointer;
+}
 
 /* memberinfo */
 #memberi{
@@ -599,6 +615,51 @@ hr{
 }
 #member hr{
     margin-top: 0px;
+}
+
+#recentlyAdded{
+  border-radius: 15px;
+  padding: 24px;
+  background-color: white;
+  margin-top: 19px;
+  margin-left: 13;
+}
+#recentlyAdded img{
+    border-radius: 10px 10px 0 0;
+}
+#recentlyAdded i{
+    font-size: small; 
+    color: white;
+    margin-right: -15px;
+}
+#recentlyAdded .dropdown{
+    left: -15px; 
+    position: static;
+}
+#recentlyAdded i:hover{
+    background-color: white;
+    color: rgb(65, 119, 226);
+    padding: 3px;
+    border-radius: 6px;
+}
+
+.rbook{
+    background-color: rgb(65, 119, 226);
+    width: 175px;
+    padding: 0 10px;
+    border: 1px solid grey;
+    margin-bottom: 17px;
+    border-radius: 0 0 7px 7px;
+    color: white;
+}
+.mCount, .bCount{
+    margin-top: -9px;
+    margin-left: 8%;
+    background-color: white;
+    width: fit-content;
+    padding: 7px 12px;
+    margin-bottom: 10px;
+    color: rgb(65, 119, 226);
 }
 #member .sm{
     margin-top: -5px;

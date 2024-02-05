@@ -40,6 +40,21 @@
     <script src="{% static 'js/bookReturn.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/alert.js' %}"></script>
+<script>
+    const bookDescription = document.getElementById('bookDescription');
+    const readMoreBtn = document.getElementById('readMoreBtn');
 
+    readMoreBtn.addEventListener('click', (e) => {
+        if (readMoreBtn.innerText == 'Read more >>'){
+            bookDescription.classList.remove('d-none')
+        readMoreBtn.innerText = 'Read less >>'
+        }
+        else{
+            bookDescription.classList.add('d-none')
+        readMoreBtn.innerText = 'Read more >>'
+        }
+       
+    })
+</script>
 </body>
 </html>

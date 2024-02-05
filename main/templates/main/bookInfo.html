@@ -9,14 +9,14 @@
             <img height="150vh" src="{{ book.img_url}}" alt="" style="border-radius: 5px;">
             <div style="padding: 0px 10px;">
                 <h3 style="font-size: 1em; font-weight: bolder ;">{{ book.title }}</h3>
-                <p class="mb-0">{{ book.description|slice:":400" }}</p>
-                <p><a href="">Read more</a></p>
+                <p class="mb-0">{{ book.description|slice:":400" }} <span class="d-none" id="bookDescription">{{ book.description|slice:"400:-1" }}</span></p>
+                <p><a id="readMoreBtn" class="text-primary">Read more &gt&gt;</a></p>
                 <h4 style="font-size: 0.7em; font-weight: bold ;">By {{ book.author}}</h4>
             </div>
         
         </div>
         <div style="background-color: white;">
-            <h3>Borrow history</h3>
+            <h4 class="ps-3" style="color: rgb(65, 119,226);">BORROW HISTORY</h4>
             <ul class="pe-3">
                 <li class="d-flex justify-content-between">
                     <p style="width: 20%;">MEMBER</p>
