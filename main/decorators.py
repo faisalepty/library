@@ -3,13 +3,18 @@ from django.http import HttpResponse
 
 
 def unAuthenticated(view_func):
-    def wrapper(request, *args,**kwargs):
+    def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated:
             prevPage = request.META.get('HTTP_REFERER')
-            return redirect(prevPage)
+            if prevPage:
+                return redirect(prevPage)
+            else:
+                return redirect("home")
         else:
             return view_func(request, *args, **kwargs)
     return wrapper
+
+
 
 def allowedUsers(allowedRoles=[]):
     def dec(view_func):
