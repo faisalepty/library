@@ -20,7 +20,6 @@ updateLibrarian.forEach(btn => {
       type: 'GET',
       url: `/editlibrarianinfo/${pk}`,
       success: (res) => {
-     
         lfirstName.value = res.librarian.first_name
         llastName.value = res.librarian.last_name
         lemail.value = res.librarian.email
@@ -46,7 +45,6 @@ lupdateBtn.addEventListener('click', (e) => {
       url: `/editlibrarianinfo/${pk}`,
       data: datar,
       success: (res) =>{
-    
         if (res.success){
           librarianModal.classList.remove('show')
       librarianModal.style.display = 'none'
@@ -102,7 +100,6 @@ laddBtn.addEventListener('click', (e) => {
     success: (res) => {
      
       if(res.Success){
-    
         successAlert(res.Success)
        librarianModal.classList.remove('show')
      librarianModal.style.display = 'none'

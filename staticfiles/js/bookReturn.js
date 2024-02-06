@@ -31,7 +31,6 @@ updateStatusBtn.addEventListener('click', (e) => {
       updateStatusModal.style.display = 'none'
       
       if(copyQuantity){
-        (copyQuantity.innerText, parseInt(copyQuantity.innerText))
       copyQuantity.innerText = parseInt(copyQuantity.innerText) + 1
      
       }

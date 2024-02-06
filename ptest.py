@@ -2,12 +2,12 @@ import csv
 import random
 from main.models import Book
 
-with open('../data/books_1.Best_Books_Ever.csv', 'r', newline='', encoding='utf-8') as file:
+with open('books_1.Best_Books_Ever.csv', 'r', newline='', encoding='utf-8') as file:
 
     data = csv.DictReader(file)
-    i = 250
+    i = 300
     for line in data:
-        if i < 320:
+        if i < 350:
             title = line['title']
             print(title)
             author = line['author']

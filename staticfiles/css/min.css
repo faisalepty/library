@@ -735,10 +735,7 @@ hr{
     #myModal form input{
         width: 310px;
     }
-    #qtoggleicon{
-        display:block;
-    }
-  
+
     .hidexlg{
         display: none;
     }

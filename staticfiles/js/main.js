@@ -29,7 +29,7 @@ closeicon.addEventListener('click', (e) =>{
   addMemberBtn1.style.display = ''
   addBookBtn1.style.display = ''
   icon.style.display = ''
-  logoutbtn.style.display = ''
+  logoutbtn.style.display = 'flex'
   // activeLink.style.display = ''
 })
 

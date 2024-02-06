@@ -79,8 +79,7 @@ updateMemberBtn.addEventListener('click', (e) => {
         enctype: 'multipart/form-data',
         data: formData,
         success: (res) => {
-            if(res.success){
-                
+            if(res.success){     
             resetMemberInputs1();
             updateMemberModal.classList.remove('show');
             updateMemberModal.style.display = 'none';
