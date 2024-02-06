@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
 
+from cloudinary.models import CloudinaryField
+
 from .utils import CalculateFine
 
 # Create your models here.
@@ -47,7 +49,7 @@ class Member(models.Model):
     age = models.IntegerField(null=True)
     debt = models.FloatField(default=0.0)
     member_since = models.DateTimeField(auto_now_add=True)
-    profile_img = models.ImageField(upload_to='image/profile_imgs', default='static/image/dummy1.png', null=True) 
+    profile_img = CloudinaryField('image')
     address = models.CharField(max_length=200)
     mobile_no = models.CharField(max_length=10)
     national_id = models.CharField(max_length=8)

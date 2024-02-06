@@ -142,14 +142,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+import cloudinary
+import cloudinary_storage
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'hnfl87ifa',
-    'API_KEY': '921435971192273',
-    'API_SECRET': '7QfUlPY8AGDNM0DhwNQYZnzMA14',
-}
+# Cloudinary configuration
+cloudinary.config(
+    cloud_name='hnfl87ifa',
+    api_key='921435971192273',
+    api_secret='7QfUlPY8AGDNM0DhwNQYZnzMA14',
+)
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # AWS_ACCESS_KEY_ID = 'AKIATCKANQTMF2FJ3DHG'

@@ -80,15 +80,17 @@ updateMemberBtn.addEventListener('click', (e) => {
         data: formData,
         success: (res) => {
             if(res.success){
+                
             resetMemberInputs1();
             updateMemberModal.classList.remove('show');
             updateMemberModal.style.display = 'none';
-            successAlert();
+            successAlert(res.success);
         }else if(res.error){
             errorAlert(res.error)
         }
     },
         error: (res) => {
+            errorAlert(res.error)
         }
     });
 });

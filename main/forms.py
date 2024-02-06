@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from cloudinary.forms import CloudinaryFileField
 from .models import Book, Member, Transaction
 
 
@@ -11,6 +12,7 @@ class Newbookform(forms.ModelForm):
         fields = '__all__'
 
 class Newmemberform(forms.ModelForm):
+    profile_img = CloudinaryFileField(required=False)
     class Meta:
         model = Member
         fields = '__all__'
