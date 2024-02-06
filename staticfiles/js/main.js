@@ -3,6 +3,7 @@ const icon = document.getElementById('qtoggleicon');
 const closeicon = document.getElementById('closeicon');
 const filterDropdown = document.getElementById('filterDropdown');
 const searchBtn1 = document.getElementById('searchBtn');
+const activeLink = document.querySelector('#activeLink').firstElementChild.nextElementSibling;
 const addMemberBtn1 = document.getElementsByClassName('addMemberBtn')[0];
 const addBookBtn1 = document.getElementsByClassName('addBookBtn')[0];
 const logoutbtn = document.getElementsByClassName('logout')[0];
@@ -16,6 +17,8 @@ icon.addEventListener('click', (e) => {
   addMemberBtn1.style.display = 'none'
   addBookBtn1.style.display = 'none'
   icon.style.display = 'none'
+  logoutbtn.style.display = 'none'
+  // activeLink.style.display = 'none'
 })
 
 closeicon.addEventListener('click', (e) =>{
@@ -26,6 +29,8 @@ closeicon.addEventListener('click', (e) =>{
   addMemberBtn1.style.display = ''
   addBookBtn1.style.display = ''
   icon.style.display = ''
+  logoutbtn.style.display = ''
+  // activeLink.style.display = ''
 })
 
 

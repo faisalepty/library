@@ -56,6 +56,7 @@ addBookFormBtn.addEventListener('click', (e) => {
     error: (res) => {
       bookModal.classList.remove('show');
         bookModal.style.display = 'none';
+        errorAlert(res.error)
     }
   });
 });
