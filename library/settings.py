@@ -157,6 +157,13 @@ cloudinary.config(
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'fhadhullibrary@gmail.com'
+EMAIL_HOST_PASSWORD = 'eatz dnnb osbz zhcf'
+
 # AWS_ACCESS_KEY_ID = 'AKIATCKANQTMF2FJ3DHG'
 # AWS_SECRET_ACCESS_KEY = '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'
 # AWS_STORAGE_BUCKET_NAME = 'librarybuck'
