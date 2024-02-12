@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d%!j3^34880e(h(f5229n!$iof2+)=(l3kpdu!7sosa(2y360y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['flibrary-e74d3c51c3c0.herokuapp.com', '127.0.0.1']
 PORT = int(os.environ.get('PORT', 8000))
@@ -157,12 +157,12 @@ cloudinary.config(
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'fhadhullibrary@gmail.com'
-EMAIL_HOST_PASSWORD = 'eatz dnnb osbz zhcf'
+EMAIL_HOST_PASSWORD = 'ojuwmdaaigxncmtp'
 
 # AWS_ACCESS_KEY_ID = 'AKIATCKANQTMF2FJ3DHG'
 # AWS_SECRET_ACCESS_KEY = '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'

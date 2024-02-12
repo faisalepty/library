@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.contrib import messages
+from django.core.mail import send_mail
+from library.settings import EMAIL_HOST_USER
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -233,15 +235,14 @@ def AddNewMember(request):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == 'POST':
         file = request.FILES.get("image")
         form = Newmemberform(request.POST, request.FILES)
-        print(request.POST, file)
         if form.is_valid():
             form.save()
 
             receiver = request.POST.get("email")
             member = request.POST.get("first_name")
 
-            from_email = "fhadhullibrary@gmail.com"
-            recipient_list = [receiver]
+            from_email = EMAIL_HOST_USER
+            recipient_list = [receiver,]
             subject = "Welcome to Fhadhul's Library"
             message = f"""Dear {member},
 
@@ -252,11 +253,11 @@ As a member, you have access to a wide range of books, and you can explore our c
 If you have any questions or need further assistance, please don't hesitate to reach out to our staff. We are here to make your library experience enjoyable and enriching.
 
 Happy reading!"""
-
             send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
             return JsonResponse({'success': 'Member successfully added'})
 
-            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+           
         else:
             errors = dict(form.errors)
             return JsonResponse({'error': 'form validation error. Please ensure you fill in the required fields', 'errors': errors})
