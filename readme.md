@@ -8,6 +8,7 @@ visit live site [flibrary](https://flibrary-e74d3c51c3c0.herokuapp.com/)
 
 - [Overview](#overview)
 - [Features](#features)
+- [Models](#models)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -42,6 +43,20 @@ The Library Management System is designed to streamline library operations, incl
 🎥
   ![transactionHIST](https://github.com/faisalepty/library/assets/129375971/71a71b4d-d13b-4d50-9503-358b43b327b5)
 - **Fine Calculation:** Automated fine calculation for late book returns.
+
+## Models
+
+The application consists of the following models:
+
+- **Book:** Represents a book in the library inventory.
+- **Member:** Represents a member of the library.
+- **Transaction:** Represents a transaction involving the issuance or return of a book.
+
+## Relationship between Models
+
+- Each `Transaction` is associated with one `Book` and one `Member`.
+- Each `Book` can have multiple `Transaction` records associated with it.
+- Each `Member` can have multiple `Transaction` records associated with them.
 
 
 ## Requirements
